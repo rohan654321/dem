@@ -1,6 +1,6 @@
 'use client';
 import { Phone, Star, TrendingUp, Clock, ShieldCheck, Users, Zap, ArrowRight } from 'lucide-react';
-import Layout from '../components/layout/layout';
+// import Layout from '../components/layout/l';
 import Hero from '../components/Sections/Hero';
 import Brands from '../components/Sections/Brands';
 import Process from '../components/Sections/Process';
@@ -113,8 +113,9 @@ export default function Home() {
   };
 
   return (
-    <Layout>
-      <Hero />
+    // <Layout>
+    <>
+    <Hero />
 
       {/* Quick Stats Section */}
       <section className="py-16 bg-white">
@@ -343,6 +344,8 @@ export default function Home() {
           <Phone size={24} />
         </motion.button>
       </div>
-    </Layout>
+    </>
+      
+    // </Layout>
   );
 }
