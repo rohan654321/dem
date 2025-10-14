@@ -1,6 +1,6 @@
 'use client';
 import { Phone, Star, TrendingUp, Clock, ShieldCheck, Users, Zap, ArrowRight } from 'lucide-react';
-import Layout from '../components/Layout/Layout';
+import Layout from '../components/layout/layout';
 import Hero from '../components/Sections/Hero';
 import Brands from '../components/Sections/Brands';
 import Process from '../components/Sections/Process';

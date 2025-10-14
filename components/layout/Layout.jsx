@@ -1,8 +1,8 @@
 // components/Layout/Layout.jsx
 'use client';
 import { useState } from 'react';
-import Header from './Header';
-import Footer from './Footer';
+// import Header from './Header';
+// import Footer from './Footer';
 import MobileMenu from './MobileMenu';
 
 export default function Layout({ children }) {
@@ -10,9 +10,9 @@ export default function Layout({ children }) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header 
+      {/* <Header 
         onMobileMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-      />
+      /> */}
       <MobileMenu 
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
