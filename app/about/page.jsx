@@ -12,13 +12,49 @@ import {
   Star
 } from 'lucide-react';
 import { FeatureCard, StatsCard } from '../../components/UI/Card';
+import CountUp from 'react-countup';
+import { useInView } from 'react-intersection-observer';
+
+// Component for animated numbers
+function AnimatedNumber({ value, suffix = "" }) {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.3,
+  });
+
+  // Extract numeric value from string (e.g., "10,000+" -> 10000)
+  const extractNumber = (val) => {
+    if (typeof val === 'number') return val;
+    const num = parseInt(val.replace(/[^0-9]/g, ''));
+    return isNaN(num) ? 0 : num;
+  };
+
+  const numericValue = extractNumber(value);
+
+  return (
+    <div ref={ref}>
+      {inView ? (
+        <CountUp
+          start={0}
+          end={numericValue}
+          duration={2.5}
+          separator=","
+          suffix={suffix}
+          className="text-3xl font-bold text-primary mb-1"
+        />
+      ) : (
+        <span className="text-3xl font-bold text-primary mb-1">0{suffix}</span>
+      )}
+    </div>
+  );
+}
 
 export default function AboutPage() {
   const stats = [
-    { number: '10,000+', label: 'Parts Delivered', icon: Truck },
-    { number: '15+', label: 'Years Experience', icon: Clock },
-    { number: '50+', label: 'Brands Supported', icon: Award },
-    { number: '5,000+', label: 'Happy Customers', icon: Users }
+    { number: 10000, label: 'Parts Delivered', icon: Truck, suffix: "+" },
+    { number: 15, label: 'Years Experience', icon: Clock, suffix: "+" },
+    { number: 50, label: 'Brands Supported', icon: Award, suffix: "+" },
+    { number: 5000, label: 'Happy Customers', icon: Users, suffix: "+" }
   ];
 
   const values = [
@@ -105,13 +141,17 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                className="text-center"
               >
-                <StatsCard
-                  number={stat.number}
-                  label={stat.label}
-                  icon={stat.icon}
-                  className="text-center"
-                />
+                <div className="bg-secondary rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+                  <div className="flex justify-center mb-4">
+                    <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center">
+                      <stat.icon className="text-black" size={28} />
+                    </div>
+                  </div>
+                  <AnimatedNumber value={stat.number} suffix={stat.suffix} />
+                  <p className="text-gray-600 font-medium">{stat.label}</p>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -128,10 +168,10 @@ export default function AboutPage() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
                 Our Story
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed">
+              <div className="space-y-4 text-gray-300 leading-relaxed">
                 <p>
                   Founded in 2008, AutoParts Zone started as a small family business 
                   with a simple mission: to provide affordable, reliable auto parts 
@@ -149,7 +189,7 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="mt-8 space-y-3">
+              <div className="mt-8 space-y-3 text-gray-300">
                 {[
                   'OEM-tested used engines and transmissions',
                   '90-day comprehensive warranty on all parts',
@@ -163,7 +203,7 @@ export default function AboutPage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="flex items-center space-x-3"
+                    className="flex items-center text-gray-300 space-x-3"
                   >
                     <CheckCircle className="text-accent flex-shrink-0" size={20} />
                     <span className="text-gray-700">{item}</span>
@@ -258,7 +298,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20"
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20 hover:bg-white/15 transition-all duration-300"
               >
                 <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="text-white" size={32} />
@@ -295,7 +335,7 @@ export default function AboutPage() {
                 href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-accent text-white px-8 py-4 rounded-lg font-semibold hover:bg-red-700 transition-colors"
+                className="bg-accent text-black border-2 px-8 py-4 rounded-lg font-semibold transition-colors"
               >
                 Contact Us Today
               </motion.a>

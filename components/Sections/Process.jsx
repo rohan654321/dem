@@ -37,17 +37,17 @@ export default function Process() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
             How It Works
           </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <p className="text-white text-lg max-w-2xl mx-auto">
             Simple 4-step process to get the right part delivered to your doorstep
           </p>
         </motion.div>
 
         <div className="relative">
           {/* Connecting Line */}
-          <div className="hidden md:block absolute top-1/4 left-0 right-0 h-0.5 bg-primary/20 transform -translate-y-1/2" />
+          {/* <div className="hidden md:block absolute top-1/4 left-0 right-0 h-0.5 bg-white/30 transform -translate-y-1/2" /> */}
           
           <div className="grid md:grid-cols-4 gap-8">
             {steps.map((step, index) => (
@@ -62,18 +62,18 @@ export default function Process() {
                 {/* Step Number */}
                 <motion.div
                   whileHover={{ scale: 1.1 }}
-                  className="w-16 h-16 bg-gradient-red rounded-full flex items-center justify-center mx-auto mb-6 relative z-10 shadow-lg"
+                  className="w-16 h-16 bg-white/10 border border-white rounded-full flex items-center justify-center mx-auto mb-6 relative z-10 shadow-lg"
                 >
                   <step.icon className="text-white" size={24} />
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-xs font-bold">
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center text-black text-xs font-bold">
                     {index + 1}
                   </div>
                 </motion.div>
 
-                <h3 className="text-xl font-semibold text-primary mb-3">
+                <h3 className="text-xl font-semibold text-white mb-3">
                   {step.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-white leading-relaxed">
                   {step.description}
                 </p>
               </motion.div>

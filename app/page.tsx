@@ -9,8 +9,13 @@ import Policies from '../components/Sections/Policies';
 import { motion } from 'framer-motion';
 import { FeatureCard, StatsCard } from '../components/UI/Card';
 import Button from '../components/UI/Button';
+import CountUp from 'react-countup';
+import PartsGrid from '@/components/parts-grid';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter();
+
   const featuredParts = [
     {
       category: 'Engines',
@@ -89,10 +94,28 @@ export default function Home() {
     }
   ];
 
+  // Click handlers
+  const handleBrowseParts = (category: string) => {
+    router.push(`/${category.toLowerCase().replace(/\s+/g, '-')}`);
+  };
+
+  const handleKnowMore = () => {
+    router.push('/about');
+  };
+
+  const handleViewMore = () => {
+    router.push('/auto-parts');
+  };
+
+  const handlePartClick = (part: any, index: number) => {
+    console.log('Part clicked:', part.title);
+    // Add your part click logic here
+  };
+
   return (
     <Layout>
       <Hero />
-      
+
       {/* Quick Stats Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
@@ -104,12 +127,17 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                className="text-center"
               >
-                <StatsCard
-                  number={stat.number}
-                  label={stat.label}
-                  icon={stat.icon}
-                  className="text-center" trend={undefined}                />
+                <stat.icon size={36} style={{ color: 'var(--background)' }} className="mx-auto mb-2" />
+                <h3 className="text-3xl font-bold mb-1" style={{ color: 'var(--background)' }}>
+                  <CountUp
+                    end={parseFloat(stat.number.replace(/\D/g, ''))}
+                    duration={2}
+                    suffix={stat.number.replace(/\d/g, '')}
+                  />
+                </h3>
+                <p className="text-lg" style={{ color: 'var(--background)' }}>{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -117,7 +145,7 @@ export default function Home() {
       </section>
 
       <Brands />
-      
+
       {/* Featured Parts Section */}
       <section className="py-20 bg-secondary">
         <div className="container mx-auto px-4">
@@ -128,10 +156,10 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-[var(--foreground)] mb-4">
               Featured Parts Inventory
             </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className="text-white text-lg max-w-2xl mx-auto">
               Browse our most popular part categories with thousands of options in stock
             </p>
           </motion.div>
@@ -146,6 +174,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 whileHover={{ y: -10 }}
                 className="bg-white rounded-2xl shadow-lg overflow-hidden group cursor-pointer"
+                onClick={() => handleBrowseParts(part.category)}
               >
                 <div className="h-48 bg-gradient-to-br from-primary to-slate-900 relative overflow-hidden">
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all" />
@@ -154,27 +183,31 @@ export default function Home() {
                     <p className="text-white/80">{part.count} available</p>
                   </div>
                 </div>
-                
+
                 <div className="p-6">
-                  <p className="text-gray-600 mb-4">{part.description}</p>
-                  
+                  <p className="text-[var(--background)] mb-4">{part.description}</p>
+
                   <div className="mb-4">
-                    <h4 className="font-semibold text-primary mb-2">Popular Items:</h4>
+                    <h4 className="font-semibold text-[var(--background)] mb-2">Popular Items:</h4>
                     <div className="flex flex-wrap gap-2">
                       {part.popular.map((item) => (
                         <span
                           key={item}
-                          className="px-3 py-1 bg-secondary text-primary rounded-full text-sm"
+                          className="px-3 py-1 bg-secondary text-[var(--background)] rounded-full text-sm"
                         >
                           {item}
                         </span>
                       ))}
                     </div>
                   </div>
-                  
+
                   <Button
                     variant="outline"
-                    className="w-full group-hover:bg-primary group-hover:text-white transition-all"
+                    className="w-full group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-all"
+                    onClick={(e: { stopPropagation: () => void; }) => {
+                      e.stopPropagation();
+                      handleBrowseParts(part.category);
+                    }}
                   >
                     Browse {part.category}
                     <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={16} />
@@ -198,10 +231,10 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-500 mb-4">
               Why Choose AutoParts Zone?
             </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               We're revolutionizing the way you source quality used auto parts
             </p>
           </motion.div>
@@ -220,6 +253,7 @@ export default function Home() {
                   title={value.title}
                   description={value.description}
                   variant="elevated"
+                  className="text-black"
                 />
               </motion.div>
             ))}
@@ -227,10 +261,19 @@ export default function Home() {
         </div>
       </section>
 
+      {/* PartsGrid Section */}
+      <PartsGrid
+        primary="oklch(0.60 0.16 255)"
+        buttonText="Know More"
+        viewMoreText="View More"
+        onPartClick={handlePartClick}
+        onViewMoreClick={handleViewMore}
+      />
+
       <TrustSection />
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gradient-to-br from-primary to-slate-900">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -239,10 +282,10 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-[var(--background)] mb-4">
               What Our Customers Say
             </h2>
-            <p className="text-gray-300 text-lg">
+            <p className="text-[var(--background)] text-lg">
               Join thousands of satisfied customers across the US
             </p>
           </motion.div>
@@ -255,21 +298,19 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20"
+                className="bg-white rounded-2xl p-8 border border-gray-200"
               >
                 {/* Rating Stars */}
                 <div className="flex mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`w-5 h-5 ${
-                        i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-gray-400'
-                      }`}
+                      className={`w-5 h-5 ${i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-gray-400'}`}
                     />
                   ))}
                 </div>
 
-                <blockquote className="text-gray-300 mb-6 leading-relaxed">
+                <blockquote className="text-[var(--background)] mb-6 leading-relaxed">
                   "{testimonial.text}"
                 </blockquote>
 
@@ -278,90 +319,17 @@ export default function Home() {
                     <Users className="text-white" size={20} />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white">{testimonial.name}</h4>
-                    <p className="text-gray-400 text-sm">{testimonial.role}</p>
+                    <h4 className="font-semibold text-black">{testimonial.name}</h4>
+                    <p className="text-[var(--background)] text-sm">{testimonial.role}</p>
                   </div>
                 </div>
               </motion.div>
             ))}
           </div>
-
-          {/* Trust Indicators */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="mt-16 text-center"
-          >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              {[
-                { number: '10,000+', label: 'Happy Customers' },
-                { number: '15+', label: 'Years Experience' },
-                { number: '50+', label: 'Brands Supported' },
-                { number: '99%', label: 'Satisfaction Rate' }
-              ].map((item, index) => (
-                <div key={item.label} className="text-center">
-                  <div className="text-2xl font-bold text-accent mb-2">{item.number}</div>
-                  <div className="text-gray-300 text-sm">{item.label}</div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
         </div>
       </section>
 
-      {/* Emergency CTA Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-r from-accent to-red-800 rounded-3xl p-12 text-center text-white relative overflow-hidden"
-          >
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 left-0 w-32 h-32 bg-white rounded-full -translate-x-16 -translate-y-16"></div>
-              <div className="absolute bottom-0 right-0 w-32 h-32 bg-white rounded-full translate-x-16 translate-y-16"></div>
-            </div>
-
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-                Need a Part Urgently?
-              </h2>
-              <p className="text-xl text-red-100 mb-8 max-w-2xl mx-auto">
-                Emergency part needed? We offer expedited shipping and priority handling for urgent requests.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="bg-white text-accent hover:bg-gray-100"
-                  onClick={() => window.open('tel:5551234567', '_self')}
-                >
-                  <Phone className="mr-2" size={18} />
-                  Call for Emergency Parts
-                </Button>
-                <Button
-                  size="lg"
-                  className="bg-transparent border-2 border-white hover:bg-white hover:text-accent"
-                  onClick={() => window.location.href = '/contact'}
-                >
-                  Request Expedited Shipping
-                </Button>
-              </div>
-              
-              <p className="text-red-200 text-sm mt-6">
-                ⚡ Same-day shipping available for orders placed before 2 PM PST
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
+      {/* Policies */}
       <Policies />
 
       {/* Sticky Mobile CTA */}
@@ -369,7 +337,7 @@ export default function Home() {
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="bg-gradient-to-r from-red-600 to-red-800 text-white p-4 rounded-full shadow-2xl"
+          className="bg-[var(--background)] text-black p-4 rounded-full shadow-2xl"
           onClick={() => window.open('tel:5551234567', '_self')}
         >
           <Phone size={24} />

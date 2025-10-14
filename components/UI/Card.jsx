@@ -150,7 +150,8 @@ export const FeatureCard = ({
   description,
   variant = 'default',
   hoverable = true,
-  className = ''
+  className = '',
+  iconColor = 'text-black' // <-- new prop for icon color
 }) => {
   return (
     <Card
@@ -165,7 +166,7 @@ export const FeatureCard = ({
             whileHover={{ scale: 1.1, rotate: 5 }}
             className="w-16 h-16 bg-gradient-red rounded-2xl flex items-center justify-center mb-4 group-hover:shadow-lg transition-all"
           >
-            <Icon className="text-white" size={28} />
+            <Icon className={`${iconColor}`} size={28} />
           </motion.div>
         )}
         
@@ -184,6 +185,7 @@ export const FeatureCard = ({
     </Card>
   );
 };
+
 
 // Stats Card Component
 export const StatsCard = ({
@@ -281,12 +283,23 @@ export const TestimonialCard = ({
     </Card>
   );
 };
+export const CardTitle = ({ children, className = '' }) => (
+  <h3 className={`text-xl font-semibold text-primary ${className}`}>{children}</h3>
+);
+
+// CardDescription component
+export const CardDescription = ({ children, className = '' }) => (
+  <p className={`text-gray-600 leading-relaxed ${className}`}>{children}</p>
+);
 
 export default Card;
 export {
+  Card,
   CardHeader,
   CardContent,
   CardFooter,
+  CardTitle,
+  CardDescription,
   FeatureCard,
   StatsCard,
   TestimonialCard

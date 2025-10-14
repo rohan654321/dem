@@ -6,17 +6,57 @@ import { useRef, useEffect, useState } from 'react';
 
 export default function Hero() {
   const videoRef = useRef(null);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+
+  const videos = [
+    '/videos/Untitled design (3).mp4',
+    '/videos/Untitled design (4).mp4'
+  ];
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.7; // Slow down the video slightly
-    }
-  }, []);
+    const video = videoRef.current;
+    if (!video) return;
 
-  const handleVideoLoad = () => {
-    setIsVideoLoaded(true);
-  };
+    const handleVideoEnd = () => {
+      // Switch to next video when current one ends
+      setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
+    };
+
+    const handleVideoLoad = () => {
+      video.play().catch((error) => {
+        console.log('Auto-play prevented, waiting for user interaction:', error);
+      });
+    };
+
+    video.addEventListener('ended', handleVideoEnd);
+    video.addEventListener('loadeddata', handleVideoLoad);
+
+    // Set current video source
+    video.src = videos[currentVideoIndex];
+    video.load();
+
+    return () => {
+      video.removeEventListener('ended', handleVideoEnd);
+      video.removeEventListener('loadeddata', handleVideoLoad);
+    };
+  }, [currentVideoIndex]);
+
+  // Fallback if videos fail to load
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleError = () => {
+      console.error('Video failed to load, using gradient background');
+      // You could set a state here to show gradient background instead
+    };
+
+    video.addEventListener('error', handleError);
+
+    return () => {
+      video.removeEventListener('error', handleError);
+    };
+  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -26,28 +66,13 @@ export default function Hero() {
           ref={videoRef}
           autoPlay
           muted
-          loop
+          loop={false} // We'll handle looping manually
           playsInline
           preload="auto"
-          onLoadedData={handleVideoLoad}
           className="w-full h-full object-cover"
-          poster="/api/placeholder/1920/1080" // Optional: fallback image
         >
-          <source src="/videos/hero-background.mp4" type="video/mp4" />
-          <source src="/videos/hero-background.webm" type="video/webm" />
-          {/* Fallback image if video doesn't load */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary to-slate-900" />
+          Your browser does not support the video tag.
         </video>
-        
-        {/* Loading state */}
-        {!isVideoLoaded && (
-          <div className="absolute inset-0 bg-gradient-to-br from-primary to-slate-900 flex items-center justify-center">
-            <div className="text-white text-center">
-              <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-              <p>Loading...</p>
-            </div>
-          </div>
-        )}
         
         {/* Dark overlay for better text readability */}
         <div className="absolute inset-0 bg-black/60 z-10" />
