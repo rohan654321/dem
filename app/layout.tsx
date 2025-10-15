@@ -1,19 +1,25 @@
+// app/layout.js
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Oswald, Open_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-// import { usePathname } from "next/navigation";
-import { headers } from "next/headers"; // for SSR route detection
+import { headers } from "next/headers";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Configure Oswald for headings
+const oswald = Oswald({
   subsets: ["latin"],
+  weight: ["600"], // SemiBold
+  variable: "--font-heading",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Configure Open Sans for body text
+const openSans = Open_Sans({
   subsets: ["latin"],
+  weight: ["400"], // Regular
+  variable: "--font-body",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -21,23 +27,19 @@ export const metadata: Metadata = {
   description: "Quality Used Auto Parts Marketplace",
 };
 
-// ✅ Pages where Footer should NOT appear
 const noFooterPaths = ["/login", "/register", "/dashboard"];
 
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  // ✅ Get current path safely (works during SSR)
   const headersList = await headers();
   const pathname = headersList.get("x-invoke-path") || "";
 
   const hideFooter = noFooterPaths.some((path) => pathname.startsWith(path));
 
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" className={`${oswald.variable} ${openSans.variable}`}>
+      <body className={`${openSans.className} antialiased`}>
         <Header onMobileMenuToggle={undefined} />
         {children}
         {!hideFooter && <Footer />}
