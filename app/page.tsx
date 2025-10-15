@@ -1,6 +1,6 @@
+// app/page.js
 'use client';
 import { Phone, Star, TrendingUp, Clock, ShieldCheck, Users, Zap, ArrowRight } from 'lucide-react';
-// import Layout from '../components/layout/l';
 import Hero from '../components/Sections/Hero';
 import Brands from '../components/Sections/Brands';
 import Process from '../components/Sections/Process';
@@ -94,7 +94,6 @@ export default function Home() {
     }
   ];
 
-  // Click handlers
   const handleBrowseParts = (category: string) => {
     router.push(`/${category.toLowerCase().replace(/\s+/g, '-')}`);
   };
@@ -109,13 +108,11 @@ export default function Home() {
 
   const handlePartClick = (part: any, index: number) => {
     console.log('Part clicked:', part.title);
-    // Add your part click logic here
   };
 
   return (
-    // <Layout>
     <>
-    <Hero />
+      <Hero />
 
       {/* Quick Stats Section */}
       <section className="py-16 bg-white">
@@ -130,15 +127,15 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <stat.icon size={36} style={{ color: 'var(--background)' }} className="mx-auto mb-2" />
-                <h3 className="text-3xl font-bold mb-1" style={{ color: 'var(--background)' }}>
+                <stat.icon size={36} className="text-primary mx-auto mb-2" />
+                <h3 className="text-3xl font-bold mb-1 text-primary">
                   <CountUp
                     end={parseFloat(stat.number.replace(/\D/g, ''))}
                     duration={2}
                     suffix={stat.number.replace(/\d/g, '')}
                   />
                 </h3>
-                <p className="text-lg" style={{ color: 'var(--background)' }}>{stat.label}</p>
+                <p className="text-lg text-primary">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -157,10 +154,10 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-[var(--foreground)] mb-4">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
               Featured Parts Inventory
             </h2>
-            <p className="text-white text-lg max-w-2xl mx-auto">
+            <p className="text-primary text-lg max-w-2xl mx-auto">
               Browse our most popular part categories with thousands of options in stock
             </p>
           </motion.div>
@@ -177,7 +174,7 @@ export default function Home() {
                 className="bg-white rounded-2xl shadow-lg overflow-hidden group cursor-pointer"
                 onClick={() => handleBrowseParts(part.category)}
               >
-                <div className="h-48 bg-gradient-to-br from-primary to-slate-900 relative overflow-hidden">
+                <div className="h-48 bg-primary relative overflow-hidden">
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all" />
                   <div className="absolute bottom-4 left-4 text-white">
                     <h3 className="text-2xl font-bold mb-1">{part.category}</h3>
@@ -186,15 +183,15 @@ export default function Home() {
                 </div>
 
                 <div className="p-6">
-                  <p className="text-[var(--background)] mb-4">{part.description}</p>
+                  <p className="text-primary mb-4">{part.description}</p>
 
                   <div className="mb-4">
-                    <h4 className="font-semibold text-[var(--background)] mb-2">Popular Items:</h4>
+                    <h4 className="font-semibold text-primary mb-2">Popular Items:</h4>
                     <div className="flex flex-wrap gap-2">
                       {part.popular.map((item) => (
                         <span
                           key={item}
-                          className="px-3 py-1 bg-secondary text-[var(--background)] rounded-full text-sm"
+                          className="px-3 py-1 bg-secondary text-primary rounded-full text-sm"
                         >
                           {item}
                         </span>
@@ -204,7 +201,7 @@ export default function Home() {
 
                   <Button
                     variant="outline"
-                    className="w-full group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-all"
+                    className="w-full group-hover:bg-accent group-hover:text-white transition-all border-accent text-accent"
                     onClick={(e: { stopPropagation: () => void; }) => {
                       e.stopPropagation();
                       handleBrowseParts(part.category);
@@ -232,10 +229,10 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-500 mb-4">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
               Why Choose AutoParts Zone?
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-primary text-lg max-w-2xl mx-auto">
               We're revolutionizing the way you source quality used auto parts
             </p>
           </motion.div>
@@ -254,7 +251,7 @@ export default function Home() {
                   title={value.title}
                   description={value.description}
                   variant="elevated"
-                  className="text-black"
+                  className="text-primary"
                 />
               </motion.div>
             ))}
@@ -262,9 +259,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PartsGrid Section */}
       <PartsGrid
-        primary="oklch(0.60 0.16 255)"
+        primary="#0e2a47"
         buttonText="Know More"
         viewMoreText="View More"
         onPartClick={handlePartClick}
@@ -283,10 +279,10 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-[var(--background)] mb-4">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
               What Our Customers Say
             </h2>
-            <p className="text-[var(--background)] text-lg">
+            <p className="text-primary text-lg">
               Join thousands of satisfied customers across the US
             </p>
           </motion.div>
@@ -299,9 +295,8 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 border border-gray-200"
+                className="bg-white rounded-2xl p-8 border border-secondary"
               >
-                {/* Rating Stars */}
                 <div className="flex mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star
@@ -311,7 +306,7 @@ export default function Home() {
                   ))}
                 </div>
 
-                <blockquote className="text-[var(--background)] mb-6 leading-relaxed">
+                <blockquote className="text-primary mb-6 leading-relaxed">
                   "{testimonial.text}"
                 </blockquote>
 
@@ -320,8 +315,8 @@ export default function Home() {
                     <Users className="text-white" size={20} />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-black">{testimonial.name}</h4>
-                    <p className="text-[var(--background)] text-sm">{testimonial.role}</p>
+                    <h4 className="font-semibold text-primary">{testimonial.name}</h4>
+                    <p className="text-primary text-sm">{testimonial.role}</p>
                   </div>
                 </div>
               </motion.div>
@@ -330,7 +325,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Policies */}
       <Policies />
 
       {/* Sticky Mobile CTA */}
@@ -338,14 +332,12 @@ export default function Home() {
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="bg-[var(--background)] text-black p-4 rounded-full shadow-2xl"
+          className="bg-accent text-white p-4 rounded-full shadow-2xl"
           onClick={() => window.open('tel:5551234567', '_self')}
         >
           <Phone size={24} />
         </motion.button>
       </div>
     </>
-      
-    // </Layout>
   );
 }

@@ -1,3 +1,4 @@
+// components/UI/Button.jsx
 'use client';
 import { motion } from 'framer-motion';
 
@@ -21,14 +22,14 @@ const Button = ({
   ...props
 }) => {
   const baseClasses =
-    'font-semibold rounded-lg transition-all duration-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 text-black';
+    'font-semibold rounded-lg transition-all duration-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2';
 
   const variantsClasses = {
-    primary: 'bg-gradient-red shadow-lg focus:ring-black',
-    secondary: 'bg-primary shadow-lg focus:ring-black',
-    outline: 'border-2 border-black bg-white text-black shadow-lg focus:ring-black',
-    ghost: 'bg-transparent text-black shadow-none focus:ring-black',
-    danger: 'bg-red-100 border border-red-500 text-black shadow-lg focus:ring-black'
+    primary: 'bg-gradient-to-r from-[#e01919] to-[#ff3b3b] text-white shadow-lg hover:shadow-xl focus:ring-[#ff3b3b]',
+    secondary: 'bg-primary text-white shadow-lg hover:shadow-xl focus:ring-primary',
+    outline: 'border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-white shadow-lg focus:ring-primary',
+    accent: 'border-2 border-accent bg-transparent text-accent hover:bg-accent hover:text-white shadow-lg focus:ring-accent',
+    ghost: 'bg-transparent text-primary hover:bg-primary/10 shadow-none focus:ring-primary'
   };
 
   const sizesClasses = {
@@ -58,18 +59,18 @@ const Button = ({
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          className="w-4 h-4 border-2 border-black border-t-transparent rounded-full mr-2"
+          className="w-4 h-4 border-2 border-current border-t-transparent rounded-full mr-2"
         />
       )}
 
       {Icon && iconPosition === 'left' && !loading && (
-        <Icon size={size === 'sm' ? 16 : 20} className="mr-2 text-black" />
+        <Icon size={size === 'sm' ? 16 : 20} className="mr-2" />
       )}
 
       {children}
 
       {Icon && iconPosition === 'right' && !loading && (
-        <Icon size={size === 'sm' ? 16 : 20} className="ml-2 text-black" />
+        <Icon size={size === 'sm' ? 16 : 20} className="ml-2" />
       )}
     </motion.button>
   );

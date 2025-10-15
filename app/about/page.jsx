@@ -22,7 +22,6 @@ function AnimatedNumber({ value, suffix = "" }) {
     threshold: 0.3,
   });
 
-  // Extract numeric value from string (e.g., "10,000+" -> 10000)
   const extractNumber = (val) => {
     if (typeof val === 'number') return val;
     const num = parseInt(val.replace(/[^0-9]/g, ''));
@@ -108,7 +107,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-secondary pt-20">
+    <div className="min-h-screen bg-white pt-20">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary to-slate-900 text-white py-20">
         <div className="container mx-auto px-4">
@@ -131,7 +130,7 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -143,10 +142,10 @@ export default function AboutPage() {
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <div className="bg-secondary rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+                <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200">
                   <div className="flex justify-center mb-4">
-                    <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center">
-                      <stat.icon className="text-black" size={28} />
+                    <div className="w-16 h-16 bg-gradient-to-r from-[#e01919] to-[#ff3b3b] rounded-full flex items-center justify-center">
+                      <stat.icon className="text-white" size={28} />
                     </div>
                   </div>
                   <AnimatedNumber value={stat.number} suffix={stat.suffix} />
@@ -159,7 +158,7 @@ export default function AboutPage() {
       </section>
 
       {/* Story Section */}
-      <section className="py-20 bg-secondary">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -168,10 +167,10 @@ export default function AboutPage() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">
                 Our Story
               </h2>
-              <div className="space-y-4 text-gray-300 leading-relaxed">
+              <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p>
                   Founded in 2008, AutoParts Zone started as a small family business 
                   with a simple mission: to provide affordable, reliable auto parts 
@@ -189,7 +188,7 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="mt-8 space-y-3 text-gray-300">
+              <div className="mt-8 space-y-3">
                 {[
                   'OEM-tested used engines and transmissions',
                   '90-day comprehensive warranty on all parts',
@@ -203,7 +202,7 @@ export default function AboutPage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="flex items-center text-gray-300 space-x-3"
+                    className="flex items-center space-x-3"
                   >
                     <CheckCircle className="text-accent flex-shrink-0" size={20} />
                     <span className="text-gray-700">{item}</span>
@@ -219,12 +218,12 @@ export default function AboutPage() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="bg-white rounded-2xl shadow-xl p-8">
+              <div className="bg-white rounded-2xl shadow-xl p-8 border border-secondary">
                 <div className="aspect-video bg-gradient-to-br from-primary to-slate-900 rounded-xl flex items-center justify-center">
                   <div className="text-white text-center p-8">
                     <MapPin className="mx-auto mb-4" size={48} />
                     <h3 className="text-2xl font-bold mb-2">Our Facility</h3>
-                    <p>State-of-the-art testing and storage facility in Los Angeles, CA</p>
+                    <p className="text-gray-300">State-of-the-art testing and storage facility in Los Angeles, CA</p>
                   </div>
                 </div>
               </div>
@@ -234,7 +233,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-secondary">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -246,7 +245,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
               Our Values
             </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-700 text-lg max-w-2xl mx-auto">
               The principles that guide everything we do
             </p>
           </motion.div>
@@ -265,6 +264,7 @@ export default function AboutPage() {
                   title={value.title}
                   description={value.description}
                   variant="elevated"
+                  className="h-full"
                 />
               </motion.div>
             ))}
@@ -300,10 +300,10 @@ export default function AboutPage() {
                 viewport={{ once: true }}
                 className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20 hover:bg-white/15 transition-all duration-300"
               >
-                <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-20 h-20 bg-gradient-to-r from-[#e01919] to-[#ff3b3b] rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="text-white" size={32} />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{member.name}</h3>
+                <h3 className="text-xl font-semibold mb-2 text-white">{member.name}</h3>
                 <p className="text-accent font-medium mb-3">{member.role}</p>
                 <p className="text-gray-300 text-sm mb-2">{member.experience}</p>
                 <p className="text-gray-400 text-xs">{member.specialty}</p>
@@ -335,7 +335,7 @@ export default function AboutPage() {
                 href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-accent text-black border-2 px-8 py-4 rounded-lg font-semibold transition-colors"
+                className="bg-gradient-to-r from-[#e01919] to-[#ff3b3b] text-white px-8 py-4 rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl"
               >
                 Contact Us Today
               </motion.a>

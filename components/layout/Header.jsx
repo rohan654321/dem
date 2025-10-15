@@ -24,8 +24,8 @@ export default function Header({ onMobileMenuToggle }) {
     { name: 'Auto Parts', href: '/auto-parts' },
     { name: 'Engines', href: '/engines' },
     { name: 'Transmissions', href: '/transmissions' },
-    // { name: 'About Us', href: '/about' },
-    // { name: 'Contact Us', href: '/contact' }
+    { name: 'About Us', href: '/about' },
+    { name: 'Contact Us', href: '/contact' }
   ];
 
   const isActiveLink = (href) => {
@@ -39,9 +39,9 @@ export default function Header({ onMobileMenuToggle }) {
       animate={{ y: 0 }}
       className="fixed w-full z-50 transition-all duration-300"
       style={{
-        backgroundColor: 'var(--background)',
-        backdropFilter: 'blur(10px)',
-        boxShadow: isScrolled ? '0 4px 12px rgba(0,0,0,0.1)' : 'none',
+        backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.95)' : 'white',
+        backdropFilter: isScrolled ? 'blur(10px)' : 'none',
+        boxShadow: isScrolled ? '0 4px 12px rgba(14, 42, 71, 0.1)' : 'none',
       }}
     >
       <div className="container mx-auto px-4 py-4">
@@ -52,21 +52,12 @@ export default function Header({ onMobileMenuToggle }) {
               whileHover={{ scale: 1.05 }}
               className="flex items-center space-x-2 cursor-pointer"
             >
-              <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center"
-                style={{ backgroundColor: 'var(--foreground)' }}
-              >
-                <span
-                  className="font-bold text-lg"
-                  style={{ color: 'var(--background)' }}
-                >
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <span className="font-bold text-lg text-white">
                   AP
                 </span>
               </div>
-              <span
-                className="font-heading font-bold text-xl"
-                style={{ color: 'var(--foreground)' }}
-              >
+              <span className="font-heading font-bold text-xl text-primary">
                 AutoParts Zone
               </span>
             </motion.div>
@@ -78,7 +69,7 @@ export default function Header({ onMobileMenuToggle }) {
               <Link key={item.name} href={item.href}>
                 <motion.div
                   whileHover={{ y: -2 }}
-                  className="transition-colors relative group cursor-pointer text-[var(--foreground)]"
+                  className="transition-colors relative group cursor-pointer text-primary hover:text-accent"
                 >
                   {item.name}
                   <span
@@ -94,19 +85,17 @@ export default function Header({ onMobileMenuToggle }) {
           <div className="hidden md:flex items-center space-x-4">
             <Link href="/contact">
               <Button
-  variant="outline"
-  // className="hover:bg-[var(--foreground)] hover:text-black transition-colors border-[var(--foreground)]"
-  style={{ color: 'black' }}
->
-  Get a Quote
-</Button>
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary hover:text-white"
+              >
+                Get a Quote
+              </Button>
             </Link>
             <a href="tel:5551234567">
               <Button
-                className="flex items-center space-x-2"
-                style={{ color: 'var(--foreground)', borderColor: 'var(--foreground)' }}
+                className="flex items-center space-x-2 bg-accent text-white hover:bg-red-600"
               >
-                <Phone size={16} style={{ color: 'var(--foreground)' }} />
+                <Phone size={16} />
                 <span>Call Now</span>
               </Button>
             </a>
@@ -115,10 +104,9 @@ export default function Header({ onMobileMenuToggle }) {
           {/* Mobile Menu Button */}
           <button
             onClick={onMobileMenuToggle}
-            className="md:hidden p-2 rounded-lg transition-colors"
-            style={{ color: 'var(--foreground)' }}
+            className="md:hidden p-2 rounded-lg transition-colors text-primary hover:bg-primary hover:text-white"
           >
-            <Menu size={24} style={{ color: 'var(--foreground)' }} />
+            <Menu size={24} />
           </button>
         </div>
       </div>

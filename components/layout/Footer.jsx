@@ -1,3 +1,4 @@
+// components/Layout/Footer.jsx
 'use client';
 import { motion } from 'framer-motion';
 import {
@@ -80,8 +81,8 @@ const Footer = () => {
 
   return (
     <footer className="relative w-full">
-      {/* 🧊 White Top Half */}
-      <div className="relative z-10 bg-white text-gray-800">
+      {/* White Top Half */}
+      <div className="relative z-10 bg-white text-primary">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -130,7 +131,7 @@ const Footer = () => {
                   <a
                     key={social.name}
                     href={social.href}
-                    className="w-9 h-9 bg-gray-100 hover:bg-primary hover:text-white rounded-lg flex items-center justify-center transition-all"
+                    className="w-9 h-9 bg-secondary hover:bg-accent hover:text-white rounded-lg flex items-center justify-center transition-all text-primary"
                   >
                     <social.icon size={16} />
                   </a>
@@ -149,7 +150,7 @@ const Footer = () => {
                     <li key={link.name}>
                       <a
                         href={link.href}
-                        className="text-gray-600 hover:text-primary transition-colors"
+                        className="text-gray-600 hover:text-accent transition-colors"
                       >
                         {link.name}
                       </a>
@@ -162,34 +163,34 @@ const Footer = () => {
         </motion.div>
       </div>
 
-      {/* ⚫ Black Bottom Half */}
-      <motion.div className="bg-black text-gray-300 border-t border-gray-800 relative z-20">
+      {/* Black Bottom Half */}
+      <motion.div className="bg-primary text-gray-300 border-t border-gray-700 relative z-20">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             {/* Copyright */}
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-300">
               © {currentYear} AutoParts Zone. All rights reserved.
             </p>
 
             {/* Warranty + Delivery */}
             <div className="flex items-center space-x-6 text-sm">
               <div className="flex items-center space-x-2">
-                <Shield className="text-primary" size={16} />
+                <Shield className="text-accent" size={16} />
                 <span>90-Day Warranty</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Truck className="text-primary" size={16} />
+                <Truck className="text-accent" size={16} />
                 <span>3–4 Days Delivery</span>
               </div>
             </div>
 
             {/* Payment Methods */}
             <div className="flex items-center space-x-2">
-              <span className="text-sm mr-2 text-gray-400">We accept:</span>
+              <span className="text-sm mr-2 text-gray-300">We accept:</span>
               {paymentMethods.map((m) => (
                 <div
                   key={m}
-                  className="bg-white/10 text-gray-200 px-3 py-1 rounded text-xs border border-gray-700"
+                  className="bg-white/10 text-gray-200 px-3 py-1 rounded text-xs border border-gray-600"
                 >
                   {m}
                 </div>

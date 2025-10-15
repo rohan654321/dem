@@ -30,11 +30,11 @@ const Card = ({
   ...props
 }) => {
   const variants = {
-    default: 'bg-white border border-gray-200',
-    elevated: 'bg-white shadow-lg',
+    default: 'bg-white border border-secondary',
+    elevated: 'bg-white shadow-lg border border-secondary',
     primary: 'bg-primary text-white',
-    secondary: 'bg-secondary border border-gray-300',
-    gradient: 'bg-gradient-to-br from-primary to-slate-900 text-white'
+    secondary: 'bg-secondary border border-secondary-dark',
+    gradient: 'bg-gradient-to-br from-primary to-slate-800 text-white'
   };
 
   const paddings = {
@@ -81,7 +81,7 @@ export const CardHeader = ({
         <div className={`flex items-center ${align === 'center' ? 'flex-col' : 'space-x-3'}`}>
           {Icon && (
             <div className={`${align === 'center' ? 'mb-3' : ''}`}>
-              <div className="w-12 h-12 bg-accent rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-r from-[#e01919] to-[#ff3b3b] rounded-xl flex items-center justify-center">
                 <Icon className="text-white" size={24} />
               </div>
             </div>
@@ -151,7 +151,7 @@ export const FeatureCard = ({
   variant = 'default',
   hoverable = true,
   className = '',
-  iconColor = 'text-black' // <-- new prop for icon color
+  iconColor = 'text-white'
 }) => {
   return (
     <Card
@@ -164,9 +164,9 @@ export const FeatureCard = ({
         {Icon && (
           <motion.div
             whileHover={{ scale: 1.1, rotate: 5 }}
-            className="w-16 h-16 bg-gradient-red rounded-2xl flex items-center justify-center mb-4 group-hover:shadow-lg transition-all"
+            className="w-16 h-16 bg-gradient-to-r from-[#e01919] to-[#ff3b3b] rounded-2xl flex items-center justify-center mb-4 group-hover:shadow-lg transition-all"
           >
-            <Icon className={`${iconColor}`} size={28} />
+            <Icon className={iconColor} size={28} />
           </motion.div>
         )}
         
@@ -185,7 +185,6 @@ export const FeatureCard = ({
     </Card>
   );
 };
-
 
 // Stats Card Component
 export const StatsCard = ({
@@ -283,11 +282,11 @@ export const TestimonialCard = ({
     </Card>
   );
 };
+
 export const CardTitle = ({ children, className = '' }) => (
   <h3 className={`text-xl font-semibold text-primary ${className}`}>{children}</h3>
 );
 
-// CardDescription component
 export const CardDescription = ({ children, className = '' }) => (
   <p className={`text-gray-600 leading-relaxed ${className}`}>{children}</p>
 );
