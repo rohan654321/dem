@@ -17,10 +17,13 @@ module.exports = {
         accent: '#e01919',
         secondary: '#cfd3d8',
         'secondary-dark': '#70777f',
+        background: '#ffffff',
+        foreground: '#0e2a47',
       },
       backgroundImage: {
         'gradient-red': 'linear-gradient(135deg, #e01919, #ff3b3b)',
         'gradient-silver': 'linear-gradient(135deg, #cfd3d8, #70777f)',
+        'gradient-primary': 'linear-gradient(135deg, #0e2a47, #1e3a5c)',
       }
     },
   },

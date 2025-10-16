@@ -1,16 +1,18 @@
+// app/auto-parts/page.js
 'use client';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import {
-  Search,
   Package,
   Shield,
   Truck,
   CheckCircle,
   ArrowRight,
   Phone,
-  Calendar
 } from 'lucide-react';
+import SearchBar from '../../components/UI/SearchBar';
+import { navigateToHomeWithForm } from '../../utils/navigation';
+import Button from '../../components/UI/Button';
+import { FeatureCard } from '../../components/UI/Card';
 import {
   SiFord,
   SiHonda,
@@ -38,10 +40,6 @@ import {
   SiFiat,
   SiSuzuki
 } from 'react-icons/si';
-
-import { FormContainer, InputField, SelectField } from '../../components/UI/Form';
-import Button from '../../components/UI/Button';
-import { FeatureCard } from '../../components/UI/Card';
 
 const brands = [
   { name: 'Ford', icon: SiFord },
@@ -72,14 +70,6 @@ const brands = [
 ];
 
 export default function AutoPartsPage() {
-  const [searchFilters, setSearchFilters] = useState({
-    category: '',
-    make: '',
-    model: '',
-    year: '',
-    partNumber: ''
-  });
-
   const categories = [
     { name: 'Engines', count: '1,200+', href: '/engines' },
     { name: 'Transmissions', count: '800+', href: '/transmissions' },
@@ -90,8 +80,6 @@ export default function AutoPartsPage() {
     { name: 'Exhaust System', count: '1,500+', href: '#' },
     { name: 'Suspension', count: '2,800+', href: '#' }
   ];
-
-  const partCategories = ['Engines', 'Transmissions', 'Electrical', 'Cooling', 'Fuel', 'Exhaust', 'Suspension', 'Brakes'];
 
   const features = [
     {
@@ -118,7 +106,6 @@ export default function AutoPartsPage() {
 
   return (
     <div className="min-h-screen bg-secondary pt-20">
-
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary to-slate-900 text-white py-20">
         <div className="container mx-auto px-4 text-center">
@@ -245,25 +232,12 @@ export default function AutoPartsPage() {
               Featured Brands
             </h2>
             <p className="text-gray-700 text-lg">
-              Find used engines for all major automotive brands
+              Find auto parts for all major automotive brands
             </p>
           </motion.div>
 
           {/* Search Bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="max-w-md mx-auto mb-12 relative"
-          >
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600" size={20} />
-            <input
-              type="text"
-              placeholder="Search for your vehicle brand..."
-              className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-md text-gray-800 placeholder-gray-500 bg-white"
-            />
-          </motion.div>
+          <SearchBar placeholder="Search for your vehicle brand..." />
 
           {/* Brands Grid */}
           <motion.div
@@ -278,7 +252,7 @@ export default function AutoPartsPage() {
               return (
                 <motion.div
                   key={brand.name}
-                  onClick={() => (window.location.href = '/')}
+                  onClick={() => navigateToHomeWithForm(brand.name)}
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: index * 0.05 }}

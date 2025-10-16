@@ -1,12 +1,8 @@
 // app/engines/page.js
 'use client';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import { 
   Search, 
-  Filter, 
-  Car, 
-  Calendar,
   Gauge,
   Shield,
   Truck,
@@ -41,7 +37,6 @@ import {
   SiSuzuki
 } from 'react-icons/si';
 
-import { FormContainer, InputField, SelectField } from '../../components/UI/Form';
 import Button from '../../components/UI/Button';
 import { FeatureCard } from '../../components/UI/Card';
 
@@ -75,18 +70,7 @@ const brands = [
 
 
 export default function EnginesPage() {
-  const [searchFilters, setSearchFilters] = useState({
-    make: '',
-    model: '',
-    year: '',
-    engineType: '',
-    mileage: ''
-  });
-
-  const popularMakes = ['Honda', 'Toyota', 'Ford', 'Chevrolet', 'BMW', 'Mercedes', 'Nissan', 'Hyundai'];
-  const engineTypes = ['Gasoline', 'Diesel', 'Hybrid', 'Electric'];
-  
-  const features = [
+ const features = [
     {
       icon: Shield,
       title: '90-Day Warranty',
@@ -108,20 +92,6 @@ export default function EnginesPage() {
       description: 'Rigorous quality inspection'
     }
   ];
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log('Search filters:', searchFilters);
-    // Handle search logic
-  };
-
-  const handleFilterChange = (e) => {
-    setSearchFilters({
-      ...searchFilters,
-      [e.target.name]: e.target.value
-    });
-  };
-
   return (
     <div className="min-h-screen bg-secondary pt-20">
       {/* Hero Section */}
@@ -143,81 +113,6 @@ export default function EnginesPage() {
           </motion.div>
         </div>
       </section>
-
-      {/* Search Section */}
-      {/* <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="max-w-6xl mx-auto"
-          >
-            <FormContainer
-              title="Find Your Engine"
-              subtitle="Search our extensive inventory of quality used engines"
-              onSubmit={handleSearch}
-              submitButton={{
-                text: 'Search Engines',
-                variant: 'primary',
-                size: 'lg',
-                icon: Search
-              }}
-              className="shadow-2xl border border-gray-200"
-            >
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <SelectField
-                  label="Vehicle Make"
-                  name="make"
-                  value={searchFilters.make}
-                  onChange={handleFilterChange}
-                  placeholder="Select make"
-                  options={popularMakes.map(make => ({ value: make.toLowerCase(), label: make }))}
-                />
-                
-                <InputField
-                  label="Vehicle Model"
-                  name="model"
-                  value={searchFilters.model}
-                  onChange={handleFilterChange}
-                  placeholder="Enter model"
-                />
-                
-               <InputField
-  label="Vehicle Year"
-  name="year"
-  type="number"
-  value={searchFilters.year}
-  onChange={handleFilterChange}
-  placeholder="Enter year"
-  icon={Calendar}
-/>
-                
-                <SelectField
-                  label="Engine Type"
-                  name="engineType"
-                  value={searchFilters.engineType}
-                  onChange={handleFilterChange}
-                  placeholder="Select type"
-                  options={engineTypes.map(type => ({ value: type.toLowerCase(), label: type }))}
-                />
-                
-                <InputField
-  label="Max Mileage"
-  name="mileage"
-  type="number"
-  value={searchFilters.mileage}
-  onChange={handleFilterChange}
-  placeholder="Enter mileage"
-  icon={Gauge}
-/>
-              </div>
-            </FormContainer>
-          </motion.div>
-        </div>
-      </section> */}
-
       {/* Features Section */}
       <section className="py-20 bg-secondary">
         <div className="container mx-auto px-4">

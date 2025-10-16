@@ -1,4 +1,4 @@
-// components/UI/Button.jsx
+// components/UI/Button.jsx (Updated color scheme)
 'use client';
 import { motion } from 'framer-motion';
 
@@ -22,7 +22,7 @@ const Button = ({
   ...props
 }) => {
   const baseClasses =
-    'font-semibold rounded-lg transition-all duration-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2';
+    'font-semibold rounded-lg transition-all duration-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 font-body';
 
   const variantsClasses = {
     primary: 'bg-gradient-to-r from-[#e01919] to-[#ff3b3b] text-white shadow-lg hover:shadow-xl focus:ring-[#ff3b3b]',

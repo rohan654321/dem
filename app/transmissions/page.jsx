@@ -1,21 +1,17 @@
 // app/transmissions/page.js
 'use client';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import { 
-  Search, 
-  Car, 
-  Calendar,
   Settings,
   Shield,
   Truck,
   CheckCircle,
-  Gauge,
   Phone
 } from 'lucide-react';
-import { FormContainer, InputField, SelectField } from '../../components/UI/Form';
 import Button from '../../components/UI/Button';
 import { FeatureCard } from '../../components/UI/Card';
+import SearchBar from '../../components/UI/SearchBar';
+import { navigateToHomeWithForm } from '../../utils/navigation';
 import {
   SiFord,
   SiHonda,
@@ -72,20 +68,7 @@ const brands = [
   { name: 'Suzuki', icon: SiSuzuki },
 ];
 
-
-export default function TransmissionsPage() {
-  const [searchFilters, setSearchFilters] = useState({
-    make: '',
-    model: '',
-    year: '',
-    transmissionType: '',
-    driveType: ''
-  });
-
-  const popularMakes = ['Honda', 'Toyota', 'Ford', 'Chevrolet', 'BMW', 'Mercedes', 'Nissan', 'Hyundai'];
-  const transmissionTypes = ['Automatic', 'Manual', 'CVT', 'DCT'];
-  const driveTypes = ['FWD', 'RWD', 'AWD', '4WD'];
-  
+export default function TransmissionsPage() {  
   const features = [
     {
       icon: Shield,
@@ -130,19 +113,6 @@ export default function TransmissionsPage() {
     }
   ];
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log('Search filters:', searchFilters);
-    // Handle search logic
-  };
-
-  const handleFilterChange = (e) => {
-    setSearchFilters({
-      ...searchFilters,
-      [e.target.name]: e.target.value
-    });
-  };
-
   return (
     <div className="min-h-screen bg-secondary pt-20">
       {/* Hero Section */}
@@ -164,80 +134,6 @@ export default function TransmissionsPage() {
           </motion.div>
         </div>
       </section>
-
-      {/* Search Section */}
-      {/* <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="max-w-6xl mx-auto"
-          >
-            <FormContainer
-              title="Find Your Transmission"
-              subtitle="Search our inventory of quality tested used transmissions"
-              onSubmit={handleSearch}
-              submitButton={{
-                text: 'Search Transmissions',
-                variant: 'primary',
-                size: 'lg',
-                icon: Search
-              }}
-              className="shadow-2xl border border-gray-200"
-            >
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <SelectField
-                  label="Vehicle Make"
-                  name="make"
-                  value={searchFilters.make}
-                  onChange={handleFilterChange}
-                  placeholder="Select make"
-                  options={popularMakes.map(make => ({ value: make.toLowerCase(), label: make }))}
-                />
-                
-                <InputField
-                  label="Vehicle Model"
-                  name="model"
-                  value={searchFilters.model}
-                  onChange={handleFilterChange}
-                  placeholder="Enter model"
-                />
-                
-              <InputField
-  label="Vehicle Year"
-  name="year"
-  type="number"
-  value={searchFilters.year}
-  onChange={handleFilterChange}
-  placeholder="Enter year"
-  icon={Calendar}
-/>
-
-                
-                <SelectField
-                  label="Transmission Type"
-                  name="transmissionType"
-                  value={searchFilters.transmissionType}
-                  onChange={handleFilterChange}
-                  placeholder="Select type"
-                  options={transmissionTypes.map(type => ({ value: type.toLowerCase(), label: type }))}
-                />
-                
-                <SelectField
-                  label="Drive Type"
-                  name="driveType"
-                  value={searchFilters.driveType}
-                  onChange={handleFilterChange}
-                  placeholder="Select drive type"
-                  options={driveTypes.map(type => ({ value: type.toLowerCase(), label: type }))}
-                />
-              </div>
-            </FormContainer>
-          </motion.div>
-        </div>
-      </section> */}
 
       {/* Features Section */}
       <section className="py-20 bg-secondary">
@@ -280,135 +176,119 @@ export default function TransmissionsPage() {
 
       {/* Transmission Types */}
       <section className="py-20 bg-white">
-  <div className="container mx-auto px-4">
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="text-center mb-16"
-    >
-      <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
-        Transmission Types
-      </h2>
-      <p className="text-gray-600 text-lg">
-        Understanding different transmission technologies
-      </p>
-    </motion.div>
-
-    <div className="grid md:grid-cols-3 gap-8">
-      {transmissionInfo.map((info, index) => (
-        <motion.div
-          key={info.type}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: index * 0.2 }}
-          viewport={{ once: true }}
-          className="bg-secondary rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300"
-        >
-          <div className="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center mb-6">
-            <Settings className="text-white" size={28} />
-          </div>
-          <h3 className="text-2xl font-semibold text-primary mb-4">
-            {info.type}
-          </h3>
-          <p className="text-gray-600 mb-6 leading-relaxed">
-            {info.description}
-          </p>
-          <div className="mb-4">
-            <h4 className="font-semibold text-primary mb-2">Compatibility:</h4>
-            <p className="text-gray-700">{info.compatibility}</p>
-          </div>
-          <div>
-            <h4 className="font-semibold text-primary mb-2">Benefits:</h4>
-            <ul className="space-y-2">
-              {info.benefits.map((benefit, benefitIndex) => (
-                <li key={benefitIndex} className="flex items-center space-x-2">
-                  <CheckCircle className="text-accent flex-shrink-0" size={16} />
-                  <span className="text-gray-700">{benefit}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</section>
-
-
-      {/* Popular Makes */}
-      {/* Featured Brands Section */}
-<section className="py-20 bg-white">
-  <div className="container mx-auto px-4">
-    {/* Title */}
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="text-center mb-12"
-    >
-      <h2 className="text-3xl md:text-4xl font-heading font-bold text-black mb-4">
-        Featured Brands
-      </h2>
-      <p className="text-gray-800 text-lg">
-        Find used engines for all major automotive brands
-      </p>
-    </motion.div>
-
-    {/* Search Bar */}
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.2 }}
-      viewport={{ once: true }}
-      className="max-w-md mx-auto mb-12 relative"
-    >
-      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black" size={20} />
-      <input
-        type="text"
-        placeholder="Search for your vehicle brand..."
-        className="w-full pl-12 pr-4 py-4 border border-gray-400 rounded-2xl focus:ring-2 focus:ring-black focus:border-transparent transition-all shadow-sm text-black placeholder-gray-500"
-      />
-    </motion.div>
-
-    {/* Brands Grid */}
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8, delay: 0.4 }}
-      viewport={{ once: true }}
-      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
-    >
-      {brands.map((brand, index) => {
-        const Icon = brand.icon;
-        return (
+        <div className="container mx-auto px-4">
           <motion.div
-            key={brand.name}
-            onClick={() => (window.location.href = '/')}  // 👈 redirects to home page
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: index * 0.05 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            whileHover={{
-              scale: 1.05,
-              y: -5,
-              transition: { duration: 0.2 },
-            }}
-            className="bg-gray-50 rounded-xl p-6 text-center shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-200"
+            className="text-center mb-16"
           >
-            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm">
-              <Icon className="text-black w-8 h-8" />
-            </div>
-            <h3 className="font-semibold text-black">{brand.name}</h3>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
+              Transmission Types
+            </h2>
+            <p className="text-gray-600 text-lg">
+              Understanding different transmission technologies
+            </p>
           </motion.div>
-        );
-      })}
-    </motion.div>
-  </div>
-</section>
 
+          <div className="grid md:grid-cols-3 gap-8">
+            {transmissionInfo.map((info, index) => (
+              <motion.div
+                key={info.type}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="bg-secondary rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300"
+              >
+                <div className="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center mb-6">
+                  <Settings className="text-white" size={28} />
+                </div>
+                <h3 className="text-2xl font-semibold text-primary mb-4">
+                  {info.type}
+                </h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  {info.description}
+                </p>
+                <div className="mb-4">
+                  <h4 className="font-semibold text-primary mb-2">Compatibility:</h4>
+                  <p className="text-gray-700">{info.compatibility}</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-primary mb-2">Benefits:</h4>
+                  <ul className="space-y-2">
+                    {info.benefits.map((benefit, benefitIndex) => (
+                      <li key={benefitIndex} className="flex items-center space-x-2">
+                        <CheckCircle className="text-accent flex-shrink-0" size={16} />
+                        <span className="text-gray-700">{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Brands Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          {/* Title */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-black mb-4">
+              Featured Brands
+            </h2>
+            <p className="text-gray-800 text-lg">
+              Find used transmissions for all major automotive brands
+            </p>
+          </motion.div>
+
+          {/* Search Bar */}
+          <SearchBar placeholder="Search for your vehicle brand..." />
+
+          {/* Brands Grid */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
+          >
+            {brands.map((brand, index) => {
+              const Icon = brand.icon;
+              return (
+                <motion.div
+                  key={brand.name}
+                  onClick={() => navigateToHomeWithForm(brand.name)}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                  viewport={{ once: true }}
+                  whileHover={{
+                    scale: 1.05,
+                    y: -5,
+                    transition: { duration: 0.2 },
+                  }}
+                  className="bg-gray-50 rounded-xl p-6 text-center shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-200"
+                >
+                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm">
+                    <Icon className="text-black w-8 h-8" />
+                  </div>
+                  <h3 className="font-semibold text-black">{brand.name}</h3>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-primary to-slate-900 text-white">

@@ -17,9 +17,9 @@ const Footer = () => {
       links: [
         { name: 'About Us', href: '/about' },
         { name: 'Our Story', href: '/our-story' },
-        { name: 'Quality Standards', href: '/quality' },
-        { name: 'Careers', href: '/careers' },
-        { name: 'Press Kit', href: '/press' },
+        // { name: 'Quality Standards', href: '/quality' },
+        // { name: 'Careers', href: '/careers' },
+        // { name: 'Press Kit', href: '/press' },
       ],
     },
     {
@@ -27,9 +27,9 @@ const Footer = () => {
       links: [
         { name: 'Used Engines', href: '/engines' },
         { name: 'Transmissions', href: '/transmissions' },
-        { name: 'Parts by Make', href: '/parts-by-make' },
-        { name: 'Parts by Model', href: '/parts-by-model' },
-        { name: 'Search Inventory', href: '/search' },
+        // { name: 'Parts by Make', href: '/parts-by-make' },
+        // { name: 'Parts by Model', href: '/parts-by-model' },
+        // { name: 'Search Inventory', href: '/search' },
       ],
     },
     {
@@ -39,7 +39,7 @@ const Footer = () => {
         { name: 'Shipping Info', href: '/shipping' },
         { name: 'Returns & Warranty', href: '/returns' },
         { name: 'FAQ', href: '/faq' },
-        { name: 'Installation Guides', href: '/guides' },
+        // { name: 'Installation Guides', href: '/guides' },
       ],
     },
     {

@@ -4,8 +4,9 @@ import { Oswald, Open_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+// import ChatBot from "@/components/UI/ChatBot";
 import { headers } from "next/headers";
-
+import CallButton from '../components/UI/callButtonFloating';
 // Configure Oswald for headings
 const oswald = Oswald({
   subsets: ["latin"],
@@ -43,6 +44,8 @@ export default async function RootLayout({
         <Header onMobileMenuToggle={undefined} />
         {children}
         {!hideFooter && <Footer />}
+         <CallButton />
+        {/* <ChatBot /> */}
       </body>
     </html>
   );
