@@ -1,6 +1,7 @@
 // components/Layout/Footer.jsx
 'use client';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import {
   Phone, Mail, MapPin, Clock,
   Facebook, Instagram, Twitter, Linkedin,
@@ -17,9 +18,6 @@ const Footer = () => {
       links: [
         { name: 'About Us', href: '/about' },
         { name: 'Our Story', href: '/our-story' },
-        // { name: 'Quality Standards', href: '/quality' },
-        // { name: 'Careers', href: '/careers' },
-        // { name: 'Press Kit', href: '/press' },
       ],
     },
     {
@@ -27,9 +25,6 @@ const Footer = () => {
       links: [
         { name: 'Used Engines', href: '/engines' },
         { name: 'Transmissions', href: '/transmissions' },
-        // { name: 'Parts by Make', href: '/parts-by-make' },
-        // { name: 'Parts by Model', href: '/parts-by-model' },
-        // { name: 'Search Inventory', href: '/search' },
       ],
     },
     {
@@ -39,7 +34,6 @@ const Footer = () => {
         { name: 'Shipping Info', href: '/shipping' },
         { name: 'Returns & Warranty', href: '/returns' },
         { name: 'FAQ', href: '/faq' },
-        // { name: 'Installation Guides', href: '/guides' },
       ],
     },
     {
@@ -91,12 +85,16 @@ const Footer = () => {
           className="max-w-7xl mx-auto px-4 md:px-8 py-16"
         >
           <div className="grid lg:grid-cols-2 xl:grid-cols-6 gap-8 mb-12">
-            {/* Brand Section */}
+            {/* ✅ Brand Section */}
             <motion.div variants={itemVariants} className="xl:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-lg">
-                  AP
-                </div>
+                <Image
+                  src="/logo/logo.jpeg" // replace with your logo path
+                  alt="AutoParts Zone Logo"
+                  width={55}
+                  height={55}
+                  className="object-contain rounded-lg"
+                />
                 <div>
                   <h3 className="text-2xl font-heading font-bold text-primary">
                     AutoParts Zone
@@ -142,9 +140,7 @@ const Footer = () => {
             {/* Footer Links */}
             {footerSections.map((section) => (
               <motion.div key={section.title} variants={itemVariants}>
-                <h4 className="font-semibold text-lg mb-6 text-primary">
-                  {section.title}
-                </h4>
+                <h4 className="font-semibold text-lg mb-6 text-primary">{section.title}</h4>
                 <ul className="space-y-3">
                   {section.links.map((link) => (
                     <li key={link.name}>

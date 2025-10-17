@@ -6,6 +6,7 @@ import Button from '../UI/Button';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 export default function Header({ onMobileMenuToggle }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,21 +45,28 @@ export default function Header({ onMobileMenuToggle }) {
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="flex items-center space-x-2 cursor-pointer"
-            >
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="font-bold text-lg text-white">
-                  AP
-                </span>
-              </div>
-              <span className="font-heading font-bold text-xl text-primary">
-                AutoParts Zone
-              </span>
+          {/* ✅ Logo Image */}
+          <Link href="/" className="flex items-center space-x-3">
+            <motion.div whileHover={{ scale: 1.05 }} className="flex items-center cursor-pointer">
+              <Image
+                src="/logo/logo.jpeg" // replace with your logo path (e.g. /images/logo.png)
+                alt="AutoParts Zone Logo"
+                width={50}
+                height={55}
+                className="object-contain rounded-lg mr-2"
+                priority
+              />
             </motion.div>
+<span
+  className="font-extrabold text-3xl uppercase tracking-wider bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 bg-clip-text text-transparent"
+  style={{
+    WebkitTextStroke: '1px #0E2A47',
+  }}
+>
+  AutoParts Zone
+</span>
+
+
           </Link>
 
           {/* Desktop Navigation */}
@@ -90,9 +98,7 @@ export default function Header({ onMobileMenuToggle }) {
               </Button>
             </Link>
             <a href="tel:5551234567">
-              <Button
-                className="flex items-center space-x-2 bg-accent text-white hover:bg-red-600"
-              >
+              <Button className="flex items-center space-x-2 bg-accent text-white hover:bg-red-600">
                 <Phone size={16} />
                 <span>Call Now</span>
               </Button>
