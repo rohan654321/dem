@@ -24,8 +24,6 @@ export default function Header({ onMobileMenuToggle }) {
     { name: 'Auto Parts', href: '/auto-parts' },
     { name: 'Engines', href: '/engines' },
     { name: 'Transmissions', href: '/transmissions' },
-    { name: 'About Us', href: '/about' },
-    { name: 'Contact Us', href: '/contact' }
   ];
 
   const isActiveLink = (href) => {
