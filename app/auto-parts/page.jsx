@@ -40,6 +40,7 @@ import {
   SiFiat,
   SiSuzuki
 } from 'react-icons/si';
+import { useState } from 'react';
 
 const brands = [
   { name: 'Ford', icon: SiFord },
@@ -70,6 +71,14 @@ const brands = [
 ];
 
 export default function AutoPartsPage() {
+  const [filteredBrands, setFilteredBrands] = useState(brands);
+
+  const handleSearch = (query) => {
+    const filtered = brands.filter((b) =>
+      b.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredBrands(filtered);
+  };
   const categories = [
     { name: 'Engines', count: '1,200+', href: '/engines' },
     { name: 'Transmissions', count: '800+', href: '/transmissions' },
@@ -219,50 +228,29 @@ export default function AutoPartsPage() {
 
       {/* Featured Brands Section */}
       <section className="py-20 bg-gray-100">
-        <div className="container mx-auto px-4">
-          {/* Title */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
-              Featured Brands
-            </h2>
-            <p className="text-gray-700 text-lg">
-              Find auto parts for all major automotive brands
-            </p>
-          </motion.div>
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
+            Featured Brands
+          </h2>
+          <p className="text-gray-700 text-lg mb-8">
+            Find auto parts for all major automotive brands
+          </p>
 
-          {/* Search Bar */}
-          <SearchBar placeholder="Search for your vehicle brand..." />
+          {/* 🔍 Search Bar */}
+          <SearchBar
+            placeholder="Search for your vehicle brand..."
+            onSearch={handleSearch}
+          />
 
-          {/* Brands Grid */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
-          >
-            {brands.map((brand, index) => {
+          {/* 🔧 Filtered Brands Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            {filteredBrands.map((brand, index) => {
               const Icon = brand.icon;
               return (
                 <motion.div
                   key={brand.name}
                   onClick={() => navigateToHomeWithForm(brand.name)}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
-                  viewport={{ once: true }}
-                  whileHover={{
-                    scale: 1.08,
-                    y: -6,
-                    boxShadow: '0px 8px 20px rgba(0,0,0,0.1)',
-                    transition: { duration: 0.2 },
-                  }}
+                  whileHover={{ scale: 1.08, y: -6 }}
                   className="bg-white rounded-xl p-6 text-center shadow-sm hover:shadow-lg transition-all cursor-pointer border border-gray-200"
                 >
                   <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -272,9 +260,13 @@ export default function AutoPartsPage() {
                 </motion.div>
               );
             })}
-          </motion.div>
+            {filteredBrands.length === 0 && (
+              <p className="col-span-full text-gray-600">No brands found.</p>
+            )}
+          </div>
         </div>
       </section>
+
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-primary to-slate-900 text-white">
@@ -297,6 +289,7 @@ export default function AutoPartsPage() {
               variant="outline"
               size="lg"
               onClick={() => window.open('tel:5551234567', '_self')}
+              className='text-white'
             >
               <Phone size={18} className="mr-2" />
               Parts Specialist
