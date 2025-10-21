@@ -8,12 +8,16 @@ import {
   MapPin, 
   Clock,
   MessageCircle,
-  Send
+  Send,
+  CheckCircle,
+  XCircle
 } from 'lucide-react';
 import { FormContainer, InputField, SelectField, TextAreaField } from '../../components/UI/Form';
 import Button from '../../components/UI/Button';
+import { useRouter } from 'next/navigation';
 
 export default function ContactPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,6 +28,7 @@ export default function ContactPage() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
 
   const contactMethods = [
     {
@@ -63,21 +68,53 @@ export default function ContactPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      console.log('Form submitted:', formData);
-      setIsSubmitting(false);
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        vehicleInfo: '',
-        message: ''
+    setSubmitMessage('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-    }, 2000);
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSubmitMessage({
+          type: 'success',
+          text: result.message || 'Message sent successfully! We will contact you within 24 hours.'
+        });
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          vehicleInfo: '',
+          message: ''
+        });
+
+        // Optionally redirect to thank you page
+        // router.push('/contact-thank-you');
+        
+      } else {
+        setSubmitMessage({
+          type: 'error',
+          text: result.error || 'Failed to send message. Please try again.'
+        });
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      setSubmitMessage({
+        type: 'error',
+        text: 'Failed to send message. Please check your connection and try again.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -165,16 +202,35 @@ export default function ContactPage() {
               viewport={{ once: true }}
               className="lg:col-span-2"
             >
+              {/* Success/Error Message */}
+              {submitMessage && (
+                <div className={`mb-6 p-4 rounded-lg border ${
+                  submitMessage.type === 'success' 
+                    ? 'bg-green-50 border-green-200 text-green-800' 
+                    : 'bg-red-50 border-red-200 text-red-800'
+                }`}>
+                  <div className="flex items-center space-x-2">
+                    {submitMessage.type === 'success' ? (
+                      <CheckCircle className="w-5 h-5" />
+                    ) : (
+                      <XCircle className="w-5 h-5" />
+                    )}
+                    <span>{submitMessage.text}</span>
+                  </div>
+                </div>
+              )}
+
               <FormContainer
                 title="Send us a Message"
                 subtitle="Fill out the form below and we'll get back to you within 24 hours"
                 onSubmit={handleSubmit}
                 submitButton={{
-                  text: 'Send Message',
+                  text: isSubmitting ? 'Sending...' : 'Send Message',
                   variant: 'primary',
                   size: 'lg',
                   loading: isSubmitting,
-                  disabled: isSubmitting
+                  disabled: isSubmitting,
+                  icon: isSubmitting ? null : Send
                 }}
               >
                 <div className="grid md:grid-cols-2 gap-6">

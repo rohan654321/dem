@@ -169,6 +169,7 @@ export default function TransmissionsPage() {
                   title={feature.title}
                   description={feature.description}
                   variant="elevated"
+                  className='h-full'
                 />
               </motion.div>
             ))}
