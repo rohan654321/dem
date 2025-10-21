@@ -57,14 +57,14 @@ export default function Header({ onMobileMenuToggle }) {
                 priority
               />
             </motion.div>
-<span
-  className="font-extrabold text-3xl uppercase tracking-wider bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 bg-clip-text text-transparent"
-  style={{
-    WebkitTextStroke: '1px #0E2A47',
-  }}
->
-  AutoParts Zone
-</span>
+            <span
+              className="font-extrabold text-3xl uppercase tracking-wider bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 bg-clip-text text-transparent"
+              style={{
+                WebkitTextStroke: '1px #0E2A47',
+              }}
+            >
+              AutoParts Zone
+            </span>
 
 
           </Link>
