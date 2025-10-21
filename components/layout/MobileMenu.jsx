@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Phone, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+  import { useEffect } from 'react';
 
 const MobileMenu = ({ isOpen, onClose }) => {
   const pathname = usePathname();
@@ -51,12 +52,24 @@ const MobileMenu = ({ isOpen, onClose }) => {
     }
   };
 
+
+useEffect(() => {
+  if (isOpen) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+  return () => {
+    document.body.style.overflow = '';
+  };
+}, [isOpen]);
+
   const handleLinkClick = () => {
     onClose();
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode='wait'>
       {isOpen && (
         <>
           {/* Overlay */}
@@ -65,7 +78,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
             initial="closed"
             animate="open"
             exit="closed"
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 md:hidden"
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[998] md:hidden"
             onClick={onClose}
           />
 
@@ -75,7 +88,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
             initial="closed"
             animate="open"
             exit="closed"
-            className="fixed top-0 right-0 h-full w-80 max-w-full bg-white shadow-2xl z-50 md:hidden flex flex-col"
+            className="fixed top-0 right-0 h-full w-80 max-w-full bg-white shadow-2xl z-[999] md:hidden flex flex-col"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200">

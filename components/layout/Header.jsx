@@ -56,9 +56,6 @@ export default function Header({ onMobileMenuToggle }) {
                 className="object-contain rounded-lg"
                 priority
               />
-              <span className="font-extrabold text-2xl uppercase tracking-wider bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 bg-clip-text text-transparent">
-                AutoParts Zone
-              </span>
             </motion.div>
 <span
   className="font-extrabold text-3xl uppercase tracking-wider bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 bg-clip-text text-transparent"

@@ -16,10 +16,11 @@ export default function ClientLayout({ children }) {
   return (
     <>
       <Header onMobileMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
-      <MobileMenu 
-        isMobileMenuOpen={isMobileMenuOpen}
-        onClose={() => setIsMobileMenuOpen(false)}
-      />
+     <MobileMenu 
+  isOpen={isMobileMenuOpen}
+  onClose={() => setIsMobileMenuOpen(false)}
+/>
+
       <main>
         {children}
       </main>
