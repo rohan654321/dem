@@ -39,6 +39,8 @@ import {
 
 import Button from '../../components/UI/Button';
 import { FeatureCard } from '../../components/UI/Card';
+import { useState } from 'react';
+import SearchBar from '../../components/UI/SearchBar';
 
 const brands = [
   { name: 'Ford', icon: SiFord },
@@ -70,6 +72,14 @@ const brands = [
 
 
 export default function EnginesPage() {
+    const [filteredBrands, setFilteredBrands] = useState(brands);
+
+  const handleSearch = (query) => {
+    const filtered = brands.filter((b) =>
+      b.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredBrands(filtered);
+  };
  const features = [
     {
       icon: Shield,
@@ -154,78 +164,53 @@ export default function EnginesPage() {
 
       {/* Popular Makes */}
 {/* Featured Brands Section */}
-<section className="py-20 bg-white">
-  <div className="container mx-auto px-4">
-    {/* Title */}
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="text-center mb-12"
-    >
-      <h2 className="text-3xl md:text-4xl font-heading font-bold text-black mb-4">
-        Featured Brands
-      </h2>
-      <p className="text-gray-800 text-lg">
-        Find used engines for all major automotive brands
-      </p>
-    </motion.div>
+ <section className="py-20 bg-white">
+      <div className="container mx-auto px-4">
+        {/* Title */}
+        <h2 className="text-3xl md:text-4xl font-heading font-bold text-black mb-4 text-center">
+          Featured Brands
+        </h2>
+        <p className="text-gray-800 text-lg text-center mb-8">
+          Find used engines for all major automotive brands
+        </p>
 
-    {/* Search Bar */}
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.2 }}
-      viewport={{ once: true }}
-      className="max-w-md mx-auto mb-12 relative"
-    >
-      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black" size={20} />
-      <input
-        type="text"
-        placeholder="Search for your vehicle brand..."
-        className="w-full pl-12 pr-4 py-4 border border-gray-400 rounded-2xl focus:ring-2 focus:ring-black focus:border-transparent transition-all shadow-sm text-black placeholder-gray-500"
-      />
-    </motion.div>
+        {/* 🔍 Search Bar */}
+        <SearchBar
+          placeholder="Search for your vehicle brand..."
+          onSearch={handleSearch}
+        />
 
-    {/* Brands Grid */}
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8, delay: 0.4 }}
-      viewport={{ once: true }}
-      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
-    >
-      {brands.map((brand, index) => {
-        const Icon = brand.icon;
-        return (
-          <motion.div
-            key={brand.name}
-            onClick={() => (window.location.href = '/')}  // 👈 redirects to home page
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: index * 0.05 }}
-            viewport={{ once: true }}
-            whileHover={{
-              scale: 1.05,
-              y: -5,
-              transition: { duration: 0.2 },
-            }}
-            className="bg-gray-50 rounded-xl p-6 text-center shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-200"
-          >
-            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm">
-              <Icon className="text-black w-8 h-8" />
-            </div>
-            <h3 className="font-semibold text-black">{brand.name}</h3>
-          </motion.div>
-        );
-      })}
-    </motion.div>
-  </div>
-</section>
-
-
-      {/* CTA Section */}
+        {/* 🔧 Filtered Brand Grid */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
+        >
+          {filteredBrands.map((brand, index) => {
+            const Icon = brand.icon;
+            return (
+              <motion.div
+                key={brand.name}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="bg-gray-50 rounded-xl p-6 text-center shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-200"
+              >
+                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm">
+                  <Icon className="text-black w-8 h-8" />
+                </div>
+                <h3 className="font-semibold text-black">{brand.name}</h3>
+              </motion.div>
+            );
+          })}
+          {filteredBrands.length === 0 && (
+            <p className="col-span-full text-center text-gray-600">
+              No matching brands found.
+            </p>
+          )}
+        </motion.div>
+      </div>
+    </section>
+          {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-primary to-slate-900 text-white">
         <div className="container mx-auto px-4">
           <motion.div
@@ -247,6 +232,7 @@ export default function EnginesPage() {
                 variant="outline"
                 size="lg"
                 onClick={() => window.open('tel:5551234567', '_self')}
+                className='text-white'
               >
                 <Phone size={18} className="mr-2" />
                 Call for Availability

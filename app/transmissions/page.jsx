@@ -39,6 +39,8 @@ import {
   SiFiat,
   SiSuzuki
 } from 'react-icons/si';
+import { useState } from 'react';
+import React from 'react';
 
 const brands = [
   { name: 'Ford', icon: SiFord },
@@ -233,36 +235,58 @@ export default function TransmissionsPage() {
       </section>
 
       {/* Featured Brands Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          {/* Title */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-black mb-4">
-              Featured Brands
-            </h2>
-            <p className="text-gray-800 text-lg">
-              Find used transmissions for all major automotive brands
+{/* Featured Brands Section */}
+<section className="py-20 bg-white">
+  <div className="container mx-auto px-4">
+    {/* Title */}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+      className="text-center mb-12"
+    >
+      <h2 className="text-3xl md:text-4xl font-heading font-bold text-black mb-4">
+        Featured Brands
+      </h2>
+      <p className="text-gray-800 text-lg">
+        Find used transmissions for all major automotive brands
+      </p>
+    </motion.div>
+
+    {/* 👇 Search & Filter Logic */}
+    {(() => {
+      const [query, setQuery] = React.useState('');
+
+      // Filter brands based on search query
+      const filteredBrands = brands.filter((brand) =>
+        brand.name.toLowerCase().includes(query.toLowerCase())
+      );
+
+      return (
+        <>
+          {/* 🔍 SearchBar with live filtering */}
+          <SearchBar
+            placeholder="Search for your vehicle brand..."
+            onSearch={(value) => setQuery(value)}
+          />
+
+          {/* No results message */}
+          {filteredBrands.length === 0 && (
+            <p className="text-center text-gray-500 mt-6">
+              No matching brands found.
             </p>
-          </motion.div>
+          )}
 
-          {/* Search Bar */}
-          <SearchBar placeholder="Search for your vehicle brand..." />
-
-          {/* Brands Grid */}
+          {/* ✅ Filtered Brand Cards */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 mt-8"
           >
-            {brands.map((brand, index) => {
+            {filteredBrands.map((brand, index) => {
               const Icon = brand.icon;
               return (
                 <motion.div
@@ -287,8 +311,11 @@ export default function TransmissionsPage() {
               );
             })}
           </motion.div>
-        </div>
-      </section>
+        </>
+      );
+    })()}
+  </div>
+</section>
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-primary to-slate-900 text-white">
@@ -312,6 +339,7 @@ export default function TransmissionsPage() {
                 variant="outline"
                 size="lg"
                 onClick={() => window.open('tel:5551234567', '_self')}
+                className='text-white border'
               >
                 <Phone size={18} className="mr-2" />
                 Expert Consultation

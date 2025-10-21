@@ -43,28 +43,31 @@ export default function Header({ onMobileMenuToggle }) {
         boxShadow: isScrolled ? '0 4px 12px rgba(14, 42, 71, 0.1)' : 'none',
       }}
     >
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
-          {/* ✅ Logo Image */}
+          {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
             <motion.div whileHover={{ scale: 1.05 }} className="flex items-center cursor-pointer">
               <Image
-                src="/logo/logo.jpeg" // replace with your logo path (e.g. /images/logo.png)
+                src="/logo/logo.jpeg"
                 alt="AutoParts Zone Logo"
-                width={50}
-                height={55}
-                className="object-contain rounded-lg mr-2"
+                width={45}
+                height={45}
+                className="object-contain rounded-lg"
                 priority
               />
+              <span className="font-extrabold text-2xl uppercase tracking-wider bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 bg-clip-text text-transparent">
+                AutoParts Zone
+              </span>
             </motion.div>
-            <span
-              className="font-extrabold text-3xl uppercase tracking-wider bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 bg-clip-text text-transparent"
-              style={{
-                WebkitTextStroke: '1px #0E2A47',
-              }}
-            >
-              AutoParts Zone
-            </span>
+<span
+  className="font-extrabold text-3xl uppercase tracking-wider bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 bg-clip-text text-transparent"
+  style={{
+    WebkitTextStroke: '1px #0E2A47',
+  }}
+>
+  AutoParts Zone
+</span>
 
 
           </Link>
@@ -75,7 +78,11 @@ export default function Header({ onMobileMenuToggle }) {
               <Link key={item.name} href={item.href}>
                 <motion.div
                   whileHover={{ y: -2 }}
-                  className="transition-colors relative group cursor-pointer text-primary hover:text-accent"
+                  className={`transition-colors relative group cursor-pointer ${
+                    isActiveLink(item.href)
+                      ? 'text-accent font-semibold'
+                      : 'text-primary hover:text-accent'
+                  }`}
                 >
                   {item.name}
                   <span
