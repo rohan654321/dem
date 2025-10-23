@@ -25,6 +25,7 @@ export async function POST(request: { json: () => any; }) {
     // Create transporter with direct credentials
     const transporter = nodemailer.createTransport({
       service: 'gmail',
+      secure: true,
       auth: {
         user: GMAIL_USER,
         pass: GMAIL_PASS,
