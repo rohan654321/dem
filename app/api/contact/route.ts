@@ -18,9 +18,9 @@ export async function POST(request: { json: () => any; }) {
     }
 
     // Use Gmail credentials
-    const GMAIL_USER = "mondalrohan201@gmail.com";
-    const GMAIL_PASS = "vwpg xiry lmgg jgbp";
-    const ADMIN_EMAIL = "mondalrohan201@gmail.com";
+    const GMAIL_USER = "usautoparts74@gmail.com";
+    const GMAIL_PASS = "mbgq yvxq jsck jbup";
+    const ADMIN_EMAIL = "usautoparts74@gmail.com";
 
     // Create transporter
     const transporter = nodemailer.createTransport({
