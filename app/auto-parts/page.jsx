@@ -8,11 +8,13 @@ import {
   CheckCircle,
   ArrowRight,
   Phone,
+  Search,
+  Wrench,
 } from 'lucide-react';
 import SearchBar from '../../components/UI/SearchBar';
-import { navigateToHomeWithForm } from '../../utils/navigation';
 import Button from '../../components/UI/Button';
 import { FeatureCard } from '../../components/UI/Card';
+import LeadForm from '../../components/UI/LeadForm';
 import {
   SiFord,
   SiHonda,
@@ -72,6 +74,7 @@ const brands = [
 
 export default function AutoPartsPage() {
   const [filteredBrands, setFilteredBrands] = useState(brands);
+  const [selectedBrand, setSelectedBrand] = useState('');
 
   const handleSearch = (query) => {
     const filtered = brands.filter((b) =>
@@ -79,6 +82,17 @@ export default function AutoPartsPage() {
     );
     setFilteredBrands(filtered);
   };
+
+  const handleBrandClick = (brandName) => {
+    setSelectedBrand(brandName);
+    // Scroll to the hero section form
+    setTimeout(() => {
+      document.getElementById('hero-form')?.scrollIntoView({ 
+        behavior: 'smooth' 
+      });
+    }, 100);
+  };
+
   const categories = [
     { name: 'Engines', count: '1,200+', href: '/engines' },
     { name: 'Transmissions', count: '800+', href: '/transmissions' },
@@ -115,26 +129,76 @@ export default function AutoPartsPage() {
 
   return (
     <div className="min-h-screen bg-secondary pt-20">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary to-slate-900 text-white py-20">
-        <div className="container mx-auto px-4 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl font-heading font-bold mb-6"
-          >
-            Auto Parts
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9 }}
-            className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto"
-          >
-            Complete inventory of quality used auto parts. From engines to small
-            components, find everything you need with our 90-day warranty.
-          </motion.p>
+      {/* Hero Section with Form */}
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary to-slate-900">
+        {/* Background with dark overlay */}
+        <div className="absolute inset-0 bg-black/60 z-10" />
+        
+        <div className="container mx-auto px-4 relative z-30">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            {/* Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-white text-center lg:text-left"
+            >
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.8 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight mb-4 lg:mb-6"
+              >
+                Find Reliable Used{' '}
+                <span className="text-accent">Auto Parts</span>
+                {' '}— Delivered Fast
+              </motion.h1>
+              
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
+                className="text-lg md:text-xl text-gray-300 mb-6 lg:mb-8 leading-relaxed"
+              >
+                Complete inventory of quality used auto parts. From engines to small
+                components, find everything you need with our 90-day warranty.
+              </motion.p>
+
+              {/* Trust Badges */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+                className="flex flex-wrap justify-center lg:justify-start gap-4 md:gap-6 mb-6 lg:mb-8"
+              >
+                {[
+                  { icon: Shield, text: '90-Day Warranty' },
+                  { icon: Truck, text: 'Fast Shipping' },
+                  { icon: Wrench, text: 'OEM Tested' }
+                ].map((item, index) => (
+                  <div key={item.text} className="flex items-center space-x-2">
+                    <item.icon className="text-accent" size={18} />
+                    <span className="text-gray-300 text-sm md:text-base">{item.text}</span>
+                  </div>
+                ))}
+              </motion.div>
+            </motion.div>
+
+            {/* Lead Form Card */}
+            <motion.div
+              id="hero-form"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
+            >
+              <div className="max-w-md mx-auto lg:mx-0">
+                <LeadForm 
+                  preSelectedBrand={selectedBrand}
+                />
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -244,13 +308,17 @@ export default function AutoPartsPage() {
           />
 
           {/* 🔧 Filtered Brands Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 mt-8">
             {filteredBrands.map((brand, index) => {
               const Icon = brand.icon;
               return (
                 <motion.div
                   key={brand.name}
-                  onClick={() => navigateToHomeWithForm(brand.name)}
+                  onClick={() => handleBrandClick(brand.name)}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                  viewport={{ once: true }}
                   whileHover={{ scale: 1.08, y: -6 }}
                   className="bg-white rounded-xl p-6 text-center shadow-sm hover:shadow-lg transition-all cursor-pointer border border-gray-200"
                 >
@@ -267,7 +335,6 @@ export default function AutoPartsPage() {
           </div>
         </div>
       </section>
-
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-primary to-slate-900 text-white">
@@ -290,15 +357,15 @@ export default function AutoPartsPage() {
               variant="outline"
               size="lg"
               onClick={() => window.open('tel:5551234567', '_self')}
-              className='text-white'
+              className='text-white border-white hover:bg-white hover:text-primary'
             >
               <Phone size={18} className="mr-2" />
               Parts Specialist
             </Button>
             <Button
               size="lg"
-              onClick={() => (window.location.href = '/contact')}
-              className='text-white border-2'
+              onClick={() => handleBrandClick('')}
+              className='bg-accent text-white hover:bg-accent/90'
             >
               Request Part Search
             </Button>

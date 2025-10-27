@@ -30,13 +30,6 @@ export default function Home() {
       description: 'Automatic and manual transmissions ready to ship',
       popular: ['Automatic', 'Manual', 'CVT', 'DCT'],
       image: '/api/placeholder/400/300'
-    },
-    {
-      category: 'Engine Components',
-      count: '5,000+',
-      description: 'Individual components and assemblies',
-      popular: ['Cylinder Heads', 'Turbochargers', 'ECUs', 'Starters'],
-      image: '/api/placeholder/400/300'
     }
   ];
 
@@ -64,12 +57,12 @@ export default function Home() {
     }
   ];
 
-  const quickStats = [
-    { number: '15+', label: 'Years Experience', icon: Clock },
-    { number: '50K+', label: 'Parts Delivered', icon: TrendingUp },
-    { number: '4.9/5', label: 'Customer Rating', icon: Star },
-    { number: '98%', label: 'Success Rate', icon: ShieldCheck }
-  ];
+  // const quickStats = [
+  //   { number: '15+', label: 'Years Experience', icon: Clock },
+  //   { number: '50K+', label: 'Parts Delivered', icon: TrendingUp },
+  //   { number: '4.9/5', label: 'Customer Rating', icon: Star },
+  //   { number: '98%', label: 'Success Rate', icon: ShieldCheck }
+  // ];
 
   const valueProps = [
     {
@@ -119,7 +112,7 @@ export default function Home() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {quickStats.map((stat, index) => (
+            {/* {quickStats.map((stat, index) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 30 }}
@@ -138,14 +131,13 @@ export default function Home() {
                 </h3>
                 <p className="text-sm md:text-lg text-primary">{stat.label}</p>
               </motion.div>
-            ))}
+            ))} */}
           </div>
         </div>
       </section>
 
       <Brands />
-
-      {/* Featured Parts Section */}
+            {/* Featured Parts Section */}
       <section className="py-16 md:py-20 bg-secondary">
         <div className="container mx-auto px-4">
           <motion.div
@@ -158,62 +150,65 @@ export default function Home() {
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary mb-4">
               Featured Parts Inventory
             </h2>
-            <p className="text-primary text-base md:text-lg max-w-2xl mx-auto">
+            <p className="text-primary text-base md:text-lg max-w-5xl mx-auto">
               Browse our most popular part categories with thousands of options in stock
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {featuredParts.map((part, index) => (
-              <motion.div
-                key={part.category}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10 }}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden group cursor-pointer"
-                onClick={() => handleBrowseParts(part.category)}
-              >
-                <div className="h-48 bg-primary relative overflow-hidden">
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all" />
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <h3 className="text-xl md:text-2xl font-bold mb-1">{part.category}</h3>
-                    <p className="text-white/80 text-sm md:text-base">{part.count} available</p>
-                  </div>
-                </div>
-
-                <div className="p-4 md:p-6">
-                  <p className="text-primary text-sm md:text-base mb-4">{part.description}</p>
-
-                  <div className="mb-4">
-                    <h4 className="font-semibold text-primary mb-2 text-sm md:text-base">Popular Items:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {part.popular.map((item) => (
-                        <span
-                          key={item}
-                          className="px-2 py-1 bg-secondary text-primary rounded-full text-xs md:text-sm"
-                        >
-                          {item}
-                        </span>
-                      ))}
+          {/* Updated grid container with flex and justify-center */}
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl">
+              {featuredParts.map((part, index) => (
+                <motion.div
+                  key={part.category}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -10 }}
+                  className="bg-white rounded-2xl shadow-lg overflow-hidden group cursor-pointer"
+                  onClick={() => handleBrowseParts(part.category)}
+                >
+                  <div className="h-48 bg-primary relative overflow-hidden">
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all" />
+                    <div className="absolute bottom-4 left-4 text-white">
+                      <h3 className="text-xl md:text-2xl font-bold mb-1">{part.category}</h3>
+                      <p className="text-white/80 text-sm md:text-base">{part.count} available</p>
                     </div>
                   </div>
 
-                  <Button
-                    variant="outline"
-                    className="w-full group-hover:bg-accent group-hover:text-white transition-all border-accent text-accent text-sm md:text-base"
-                    onClick={(e: { stopPropagation: () => void; }) => {
-                      e.stopPropagation();
-                      handleBrowseParts(part.category);
-                    }}
-                  >
-                    Browse {part.category}
-                    <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={16} />
-                  </Button>
-                </div>
-              </motion.div>
-            ))}
+                  <div className="p-4 md:p-6">
+                    <p className="text-primary text-sm md:text-base mb-4">{part.description}</p>
+
+                    <div className="mb-4">
+                      <h4 className="font-semibold text-primary mb-2 text-sm md:text-base">Popular Items:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {part.popular.map((item) => (
+                          <span
+                            key={item}
+                            className="px-2 py-1 bg-secondary text-primary rounded-full text-xs md:text-sm"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <Button
+                      variant="outline"
+                      className="w-full group-hover:bg-accent group-hover:text-white transition-all border-accent text-accent text-sm md:text-base"
+                      onClick={(e: { stopPropagation: () => void; }) => {
+                        e.stopPropagation();
+                        handleBrowseParts(part.category);
+                      }}
+                    >
+                      Browse {part.category}
+                      <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={16} />
+                    </Button>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -271,7 +266,7 @@ export default function Home() {
       <TrustSection />
 
       {/* Testimonials Section */}
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-16 md:py-20 bg-gray-300">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -326,8 +321,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Policies />
-
+      {/* <Policies /> */}
       {/* Sticky Mobile CTA - Only show on mobile */}
       <div className="fixed bottom-6 right-6 z-50 md:hidden">
         <motion.button

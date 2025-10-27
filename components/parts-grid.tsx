@@ -4,6 +4,7 @@ import type * as React from "react";
 import Button from "@/components/UI/Button";
 import { Card, CardContent, CardTitle, CardDescription } from "@/components/UI/Card";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 type Part = {
   title: string
@@ -59,6 +60,8 @@ export function PartsGrid({
   onPartClick = () => {},
   onViewMoreClick = () => {},
 }: PartsGridProps) {
+  const router = useRouter();
+
   const scopedStyle = {
     "--primary": primary,
     "--primary-foreground": "oklch(0.985 0 0)",
@@ -85,13 +88,40 @@ export function PartsGrid({
     }
   };
 
+  // Navigate to home page and scroll to hero form
+  const goToHomeWithForm = (partType?: string) => {
+    // Store the part type for pre-filling if needed
+    if (partType) {
+      sessionStorage.setItem('prefilledPart', partType);
+    }
+    
+    // Navigate to home page
+    router.push('/');
+    
+    // Scroll to hero form after navigation
+    // We use setTimeout to ensure the page has loaded
+    setTimeout(() => {
+      const heroSection = document.getElementById('hero-section');
+      if (heroSection) {
+        heroSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   const handlePartClick = (part: Part, index: number) => {
     onPartClick(part, index);
+    goToHomeWithForm(part.title);
   };
 
   const handleKnowMoreClick = (part: Part, index: number, event: React.MouseEvent) => {
     event.stopPropagation(); // Prevent card click from triggering
     onPartClick(part, index);
+    goToHomeWithForm(part.title);
+  };
+
+  const handleViewMoreClick = () => {
+    onViewMoreClick();
+    goToHomeWithForm(); // Navigate to home without specific part type
   };
 
   return (
@@ -189,7 +219,7 @@ export function PartsGrid({
             variant="outline" 
             size="lg"
             className="border-2 border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white px-8 py-3 text-base font-semibold transition-all duration-300"
-            onClick={onViewMoreClick}
+            onClick={handleViewMoreClick}
           >
             {viewMoreText}
           </Button>

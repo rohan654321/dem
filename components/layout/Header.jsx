@@ -49,13 +49,14 @@ export default function Header({ onMobileMenuToggle }) {
           <Link href="/" className="flex items-center space-x-3">
             <motion.div whileHover={{ scale: 1.05 }} className="flex items-center cursor-pointer">
               <Image
-                src="/logo/logo.jpeg"
-                alt="AutoParts Zone Logo"
-                width={45}
-                height={45}
-                className="object-contain rounded-lg"
-                priority
-              />
+  src="/logo/logo.jpeg"
+  alt="AutoParts Zone Logo"
+  width={80}   // Increased from 45 to 80
+  height={80}  // Increased from 45 to 80
+  className="object-contain rounded-xl"
+  priority
+/>
+
             </motion.div>
 <span
   className="font-extrabold text-3xl uppercase tracking-wider bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 bg-clip-text text-transparent"
