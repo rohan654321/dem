@@ -40,7 +40,7 @@ import {
   SiFiat,
   SiSuzuki
 } from 'react-icons/si';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const brands = [
   { name: 'Ford', icon: SiFord },
@@ -73,6 +73,7 @@ const brands = [
 export default function TransmissionsPage() {  
   const [filteredBrands, setFilteredBrands] = useState(brands);
   const [selectedBrand, setSelectedBrand] = useState('');
+  const videoRef = useRef(null);
 
   const handleSearch = (query) => {
     const filtered = brands.filter((b) =>
@@ -137,10 +138,29 @@ export default function TransmissionsPage() {
 
   return (
     <div className="min-h-screen bg-secondary pt-20">
-      {/* Hero Section with Form */}
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary to-slate-900">
-        {/* Background with dark overlay */}
-        <div className="absolute inset-0 bg-black/60 z-10" />
+      {/* Hero Section with Video Background */}
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+            poster="/api/placeholder/1920/1080" // Optional: fallback image
+          >
+            {/* Add multiple video sources for better browser compatibility */}
+            <source src="/videos/transmissions-hero.mp4" type="video/mp4" />
+            <source src="/videos/transmissions-hero.webm" type="video/webm" />
+            {/* Fallback text for browsers that don't support video */}
+            Your browser does not support the video tag.
+          </video>
+          
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/60 z-10" />
+        </div>
         
         <div className="container mx-auto px-4 relative z-30">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
