@@ -213,7 +213,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Process />
+      {/* <Process /> */}
 
       {/* Value Propositions */}
       <section className="py-16 md:py-20 bg-white">

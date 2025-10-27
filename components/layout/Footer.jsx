@@ -37,8 +37,8 @@ const Footer = () => {
       title: 'Customer Support',
       links: [
         { name: 'Contact Us', href: '/contact' },
-        { name: 'Shipping Info', href: '/shipping' },
-        { name: 'Returns & Warranty', href: '/returns' },
+        // { name: 'Shipping Info', href: '/shipping' },
+        // { name: 'Returns & Warranty', href: '/returns' },
         { name: 'FAQ', href: '/faq' },
       ],
     },
@@ -46,9 +46,9 @@ const Footer = () => {
       title: 'Policies',
       links: [
         { name: 'Privacy Policy', href: '/privacy-policy' },
-        { name: 'Terms of Service', href: '/terms' },
+        { name: 'Terms & Condition', href: '/terms' },
         { name: 'Return Policy', href: '/return-policy' },
-        { name: 'Warranty Policy', href: '/warranty' },
+        // { name: 'Warranty Policy', href: '/warranty' },
         { name: 'Shipping Policy', href: '/shipping-policy' },
       ],
     },

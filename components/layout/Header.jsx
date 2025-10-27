@@ -22,9 +22,9 @@ export default function Header({ onMobileMenuToggle }) {
 
   const navigationItems = [
     { name: 'Home', href: '/' },
-    { name: 'Auto Parts', href: '/auto-parts' },
-    { name: 'Engines', href: '/engines' },
-    { name: 'Transmissions', href: '/transmissions' },
+    { name: 'Used Auto Parts', href: '/auto-parts' },
+    { name: 'Used Engines', href: '/engines' },
+    { name: 'Used Transmissions', href: '/transmissions' },
   ];
 
   const isActiveLink = (href) => {
