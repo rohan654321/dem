@@ -1,13 +1,14 @@
 // components/Sections/Hero.jsx
 'use client';
 import { motion } from 'framer-motion';
-import { Search, Shield, Truck, Wrench } from 'lucide-react';
+import { Shield, Truck, Wrench, Phone } from 'lucide-react';
 import LeadForm from '../UI/LeadForm';
 import { useRef, useEffect, useState } from 'react';
 
 export default function Hero() {
   const videoRef = useRef(null);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [prefilledBrand, setPrefilledBrand] = useState('');
 
   const videos = [
     '/videos/Untitled design (3).mp4',
@@ -15,6 +16,14 @@ export default function Hero() {
   ];
 
   useEffect(() => {
+    // Check for prefilled brand from sessionStorage
+    const brand = sessionStorage.getItem('prefilledBrand');
+    if (brand) {
+      setPrefilledBrand(brand);
+      // Clear it after using so it doesn't persist on refresh
+      sessionStorage.removeItem('prefilledBrand');
+    }
+
     const video = videoRef.current;
     if (!video) return;
 
@@ -41,7 +50,7 @@ export default function Hero() {
   }, [currentVideoIndex]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
@@ -117,7 +126,33 @@ export default function Hero() {
             className="relative"
           >
             <div className="max-w-md mx-auto lg:mx-0">
-              <LeadForm />
+              <LeadForm prefilledBrand={prefilledBrand} />
+              
+              {/* Phone Number Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.6 }}
+                className="mt-6 text-center"
+              >
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                  <div className="flex items-center justify-center space-x-3 text-white">
+                    <Phone className="text-accent" size={20} />
+                    <div>
+                      <p className="text-sm text-gray-300">Prefer to call?</p>
+                      <a 
+                        href="tel:8008383058" 
+                        className="text-lg font-bold text-white hover:text-accent transition-colors duration-300"
+                      >
+                        (800) 838-3058
+                      </a>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-300 mt-2">
+                    Call us now for immediate assistance
+                  </p>
+                </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>

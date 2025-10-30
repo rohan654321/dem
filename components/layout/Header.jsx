@@ -64,7 +64,7 @@ export default function Header({ onMobileMenuToggle }) {
     WebkitTextStroke: '1px #0E2A47',
   }}
 >
-  AutoParts Zone
+  U S AutoParts Zone
 </span>
 
 

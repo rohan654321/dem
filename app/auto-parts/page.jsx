@@ -42,34 +42,63 @@ import {
   SiFiat,
   SiSuzuki
 } from 'react-icons/si';
+import {
+  GiAmericanFootballPlayer,
+  GiAlienStare,
+  GiAngelWings,
+  GiUnionJack,
+  GiCarKey,
+  GiDodge,
+  GiInfinity,
+  GiLindenLeaf,
+  GiLion,
+  GiRam,
+  GiCarWheel,
+  GiStarsStack  // Use for Chrysler - represents luxury/prestige
+} from 'react-icons/gi';
 import { useState, useRef } from 'react';
 
 const brands = [
-  { name: 'Ford', icon: SiFord },
-  { name: 'Honda', icon: SiHonda },
-  { name: 'Toyota', icon: SiToyota },
-  { name: 'Chevrolet', icon: SiChevrolet },
-  { name: 'BMW', icon: SiBmw },
-  { name: 'Mercedes', icon: SiMercedes },
-  { name: 'Nissan', icon: SiNissan },
-  { name: 'Hyundai', icon: SiHyundai },
-  { name: 'Kia', icon: SiKia },
-  { name: 'Volkswagen', icon: SiVolkswagen },
+  { name: 'AMC', icon: GiAmericanFootballPlayer },
+  { name: 'Acura', icon: GiCarKey },
+  { name: 'Alfa Romeo', icon: GiAlienStare },
+  { name: 'Aston Martin', icon: GiAngelWings },
   { name: 'Audi', icon: SiAudi },
-  { name: 'Subaru', icon: SiSubaru },
-  { name: 'Porsche', icon: SiPorsche },
+  { name: 'Bentley', icon: GiUnionJack },
+  { name: 'BMW', icon: SiBmw },
+  { name: 'Buick', icon: GiCarKey },
+  { name: 'Cadillac', icon: GiStarsStack },       // ✅ Changed - represents luxury
+  { name: 'Chevrolet', icon: SiChevrolet },
+  { name: 'Chrysler', icon: GiCarKey },           // ✅ Changed - simple car icon
+  { name: 'Dodge', icon: GiDodge },
+  { name: 'Fiat', icon: SiFiat },
+  { name: 'Ford', icon: SiFord },
+  { name: 'GMC', icon: GiCarKey },
+  { name: 'Honda', icon: SiHonda },
+  { name: 'Hyundai', icon: SiHyundai },
+  { name: 'Infiniti', icon: GiInfinity },
+  { name: 'Jaguar', icon: SiJaguar },
+  { name: 'Jeep', icon: SiJeep },
+  { name: 'Kia', icon: SiKia },
   { name: 'Land Rover', icon: SiLandrover },
+  { name: 'Lexus', icon: GiLindenLeaf },
+  { name: 'Lincoln', icon: GiLion },
+  { name: 'Mazda', icon: SiMazda },
+  { name: 'Mercedes', icon: SiMercedes },
+  { name: 'Mini', icon: GiCarWheel },
+  { name: 'Mitsubishi', icon: SiMitsubishi },
+  { name: 'Nissan', icon: SiNissan },
+  { name: 'Peugeot', icon: SiPeugeot },
+  { name: 'Porsche', icon: SiPorsche },
+  { name: 'RAM', icon: GiRam },
+  { name: 'Subaru', icon: SiSubaru },
+  { name: 'Suzuki', icon: SiSuzuki },
+  { name: 'Tesla', icon: SiTesla },
+  { name: 'Toyota', icon: SiToyota },
+  { name: 'Volkswagen', icon: SiVolkswagen },
+  { name: 'Volvo', icon: SiVolvo },
   { name: 'Ferrari', icon: SiFerrari },
   { name: 'Lamborghini', icon: SiLamborghini },
-  { name: 'Mazda', icon: SiMazda },
-  { name: 'Jeep', icon: SiJeep },
-  { name: 'Volvo', icon: SiVolvo },
-  { name: 'Tesla', icon: SiTesla },
-  { name: 'Mitsubishi', icon: SiMitsubishi },
-  { name: 'Jaguar', icon: SiJaguar },
-  { name: 'Peugeot', icon: SiPeugeot },
-  { name: 'Fiat', icon: SiFiat },
-  { name: 'Suzuki', icon: SiSuzuki },
 ];
 
 export default function AutoPartsPage() {
@@ -144,8 +173,8 @@ export default function AutoPartsPage() {
             poster="/api/placeholder/1920/1080" // Optional: fallback image
           >
             {/* Add multiple video sources for better browser compatibility */}
-            <source src="/videos/auto-parts-hero.mp4" type="video/mp4" />
-            <source src="/videos/auto-parts-hero.webm" type="video/webm" />
+           <source src="/videos/Untitled design (3).mp4" type="video/mp4" />
+            <source src="/videos/Untitled design (4).mp4" type="video/webm" />
             {/* Fallback text for browsers that don't support video */}
             Your browser does not support the video tag.
           </video>
@@ -216,6 +245,32 @@ export default function AutoPartsPage() {
                 <LeadForm 
                   preSelectedBrand={selectedBrand}
                 />
+                
+                {/* Phone Number Section */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8, duration: 0.6 }}
+                  className="mt-6 text-center"
+                >
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                    <div className="flex items-center justify-center space-x-3 text-white">
+                      <Phone className="text-accent" size={20} />
+                      <div>
+                        <p className="text-sm text-gray-300">Prefer to call?</p>
+                        <a 
+                          href="tel:8008383058" 
+                          className="text-lg font-bold text-white hover:text-accent transition-colors duration-300"
+                        >
+                          (800) 838-3058
+                        </a>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-300 mt-2">
+                      Call us now for immediate assistance
+                    </p>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           </div>
@@ -377,11 +432,11 @@ export default function AutoPartsPage() {
             <Button
               variant="outline"
               size="lg"
-              onClick={() => window.open('tel:5551234567', '_self')}
-              className='text-white border-white hover:bg-white hover:text-primary'
+              onClick={() => window.open('tel:8008383058', '_self')}
+              className='text-white border-white hover:text-primary'
             >
               <Phone size={18} className="mr-2" />
-              Parts Specialist
+              Call (800) 838-3058
             </Button>
             <Button
               size="lg"

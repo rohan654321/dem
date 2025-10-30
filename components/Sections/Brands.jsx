@@ -1,39 +1,75 @@
 'use client';
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { SiFord, SiHonda, SiToyota, SiChevrolet, SiBmw, SiMercedes, SiNissan, SiHyundai, SiKia, SiVolkswagen, SiAudi, SiSubaru, SiPorsche, SiLandrover, SiFerrari, SiLamborghini, SiMazda, SiJeep, SiVolvo, SiTesla, SiMitsubishi, SiJaguar, SiPeugeot, SiFiat, SiSuzuki } from 'react-icons/si';
+import {
+  SiFord, SiHonda, SiToyota, SiChevrolet, SiBmw, SiMercedes,
+  SiNissan, SiHyundai, SiKia, SiVolkswagen, SiAudi, SiSubaru,
+  SiPorsche, SiLandrover, SiFerrari, SiLamborghini, SiMazda,
+  SiJeep, SiVolvo, SiTesla, SiMitsubishi, SiJaguar, SiPeugeot,
+  SiFiat, SiSuzuki
+} from 'react-icons/si';
+import {
+  GiAmericanFootballPlayer,
+  GiAlienStare,
+  GiAngelWings,
+  GiUnionJack,
+  GiCarKey,
+  GiDodge,
+  GiInfinity,
+  GiLindenLeaf,
+  GiLion,
+  GiRam,
+  GiCarWheel,
+  GiStarsStack  // Use for Chrysler - represents luxury/prestige
+} from 'react-icons/gi';
 import SearchBar from '@/components/UI/SearchBar';
+import { useRouter } from 'next/navigation';
 
 const brands = [
-  { name: 'Ford', icon: SiFord },
-  { name: 'Honda', icon: SiHonda },
-  { name: 'Toyota', icon: SiToyota },
-  { name: 'Chevrolet', icon: SiChevrolet },
-  { name: 'BMW', icon: SiBmw },
-  { name: 'Mercedes', icon: SiMercedes },
-  { name: 'Nissan', icon: SiNissan },
-  { name: 'Hyundai', icon: SiHyundai },
-  { name: 'Kia', icon: SiKia },
-  { name: 'Volkswagen', icon: SiVolkswagen },
+  { name: 'AMC', icon: GiAmericanFootballPlayer },
+  { name: 'Acura', icon: GiCarKey },
+  { name: 'Alfa Romeo', icon: GiAlienStare },
+  { name: 'Aston Martin', icon: GiAngelWings },
   { name: 'Audi', icon: SiAudi },
-  { name: 'Subaru', icon: SiSubaru },
-  { name: 'Porsche', icon: SiPorsche },
+  { name: 'Bentley', icon: GiUnionJack },
+  { name: 'BMW', icon: SiBmw },
+  { name: 'Buick', icon: GiCarKey },
+  { name: 'Cadillac', icon: GiStarsStack },       // ✅ Changed - represents luxury
+  { name: 'Chevrolet', icon: SiChevrolet },
+  { name: 'Chrysler', icon: GiCarKey },           // ✅ Changed - simple car icon
+  { name: 'Dodge', icon: GiDodge },
+  { name: 'Fiat', icon: SiFiat },
+  { name: 'Ford', icon: SiFord },
+  { name: 'GMC', icon: GiCarKey },
+  { name: 'Honda', icon: SiHonda },
+  { name: 'Hyundai', icon: SiHyundai },
+  { name: 'Infiniti', icon: GiInfinity },
+  { name: 'Jaguar', icon: SiJaguar },
+  { name: 'Jeep', icon: SiJeep },
+  { name: 'Kia', icon: SiKia },
   { name: 'Land Rover', icon: SiLandrover },
+  { name: 'Lexus', icon: GiLindenLeaf },
+  { name: 'Lincoln', icon: GiLion },
+  { name: 'Mazda', icon: SiMazda },
+  { name: 'Mercedes', icon: SiMercedes },
+  { name: 'Mini', icon: GiCarWheel },
+  { name: 'Mitsubishi', icon: SiMitsubishi },
+  { name: 'Nissan', icon: SiNissan },
+  { name: 'Peugeot', icon: SiPeugeot },
+  { name: 'Porsche', icon: SiPorsche },
+  { name: 'RAM', icon: GiRam },
+  { name: 'Subaru', icon: SiSubaru },
+  { name: 'Suzuki', icon: SiSuzuki },
+  { name: 'Tesla', icon: SiTesla },
+  { name: 'Toyota', icon: SiToyota },
+  { name: 'Volkswagen', icon: SiVolkswagen },
+  { name: 'Volvo', icon: SiVolvo },
   { name: 'Ferrari', icon: SiFerrari },
   { name: 'Lamborghini', icon: SiLamborghini },
-  { name: 'Mazda', icon: SiMazda },
-  { name: 'Jeep', icon: SiJeep },
-  { name: 'Volvo', icon: SiVolvo },
-  { name: 'Tesla', icon: SiTesla },
-  { name: 'Mitsubishi', icon: SiMitsubishi },
-  { name: 'Jaguar', icon: SiJaguar },
-  { name: 'Peugeot', icon: SiPeugeot },
-  { name: 'Fiat', icon: SiFiat },
-  { name: 'Suzuki', icon: SiSuzuki },
 ];
-
 export default function Brands() {
   const [searchTerm, setSearchTerm] = useState('');
+  const router = useRouter();
 
   // Filter brands based on search input
   const filteredBrands = useMemo(() => {
@@ -41,6 +77,18 @@ export default function Brands() {
       brand.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [searchTerm]);
+
+  const handleBrandClick = (brandName) => {
+    sessionStorage.setItem('prefilledBrand', brandName);
+    router.push('/');
+
+    setTimeout(() => {
+      const heroSection = document.getElementById('hero-section');
+      if (heroSection) {
+        heroSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
 
   return (
     <section className="py-20 bg-white">
@@ -61,7 +109,7 @@ export default function Brands() {
           </p>
         </motion.div>
 
-        {/* Search Bar — using your shared component */}
+        {/* Search Bar */}
         <SearchBar
           placeholder="Search for your vehicle brand..."
           onSearch={(value) => setSearchTerm(value)}
@@ -92,6 +140,7 @@ export default function Brands() {
                     transition: { duration: 0.2 },
                   }}
                   className="bg-gray-50 rounded-xl p-6 text-center shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-200"
+                  onClick={() => handleBrandClick(brand.name)}
                 >
                   <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm">
                     <Icon className="text-black w-8 h-8" />

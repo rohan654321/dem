@@ -108,7 +108,7 @@ const Footer = () => {
                   className="object-contain rounded-lg"
                 />
                 <div>
-                  <h3 className="text-2xl font-bold text-primary">AutoParts Zone</h3>
+                  <h3 className="text-2xl font-bold text-primary">U S AutoParts Zone</h3>
                   <p className="text-gray-600 text-sm">Quality Used Auto Parts</p>
                 </div>
               </div>

@@ -67,44 +67,12 @@ export function PartsGrid({
     "--primary-foreground": "oklch(0.985 0 0)",
   } as React.CSSProperties;
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6
-      }
-    }
-  };
-
-  // Navigate to home page and scroll to hero form
   const goToHomeWithForm = (partType?: string) => {
-    // Store the part type for pre-filling if needed
-    if (partType) {
-      sessionStorage.setItem('prefilledPart', partType);
-    }
-    
-    // Navigate to home page
-    router.push('/');
-    
-    // Scroll to hero form after navigation
-    // We use setTimeout to ensure the page has loaded
+    if (partType) sessionStorage.setItem("prefilledPart", partType);
+    router.push("/");
     setTimeout(() => {
-      const heroSection = document.getElementById('hero-section');
-      if (heroSection) {
-        heroSection.scrollIntoView({ behavior: 'smooth' });
-      }
+      const heroSection = document.getElementById("hero-section");
+      if (heroSection) heroSection.scrollIntoView({ behavior: "smooth" });
     }, 100);
   };
 
@@ -114,14 +82,14 @@ export function PartsGrid({
   };
 
   const handleKnowMoreClick = (part: Part, index: number, event: React.MouseEvent) => {
-    event.stopPropagation(); // Prevent card click from triggering
+    event.stopPropagation();
     onPartClick(part, index);
     goToHomeWithForm(part.title);
   };
 
   const handleViewMoreClick = () => {
     onViewMoreClick();
-    goToHomeWithForm(); // Navigate to home without specific part type
+    goToHomeWithForm();
   };
 
   return (
@@ -131,94 +99,91 @@ export function PartsGrid({
       aria-labelledby="parts-grid-heading"
     >
       <div className="mx-auto max-w-7xl">
-        {/* Header Section */}
-        <motion.header 
-          className="mb-12 md:mb-16 text-center"
+        {/* Header */}
+        <motion.header
+          className="mb-12 text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 
-            id="parts-grid-heading" 
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
-          >
+          <h2 id="parts-grid-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Quality Used Auto Parts
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-            Premium recycled parts that undergo rigorous testing and quality checks
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Premium recycled parts that undergo rigorous testing and quality checks.
           </p>
         </motion.header>
 
-        {/* Parts Grid */}
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {items.map((item, index) => (
             <motion.div
               key={index}
-              variants={itemVariants}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ y: -4 }}
+              className="group"
             >
-              <Card 
-                className="h-full group cursor-pointer border border-gray-200 hover:border-[var(--primary)] hover:shadow-xl transition-all duration-300 bg-white overflow-hidden"
+              <Card
+                className="h-full flex flex-col bg-white hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer border-0 shadow-sm rounded-none"
                 onClick={() => handlePartClick(item, index)}
               >
-                <CardContent className="p-0">
-                  {/* Image Section */}
-                  <div className="relative h-48 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-                    <img
-                      src={item.image || "/placeholder.svg"}
-                      alt={`${item.title} image`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-
-                  {/* Content Section */}
-                  <div className="p-6">
-                    <div className="space-y-3">
-                      <CardTitle className="text-xl font-bold text-gray-900 group-hover:text-[var(--primary)] transition-colors duration-300">
-                        {item.title}
-                      </CardTitle>
-                      <CardDescription className="text-gray-600 leading-relaxed text-base">
-                        {item.description}
-                      </CardDescription>
+                <CardContent className="flex flex-col h-full p-0">
+                  {/* Main Content Row */}
+                  <div className="flex flex-1">
+                    {/* Image */}
+                    <div className="w-1/3 min-w-[120px] overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 min-h-[140px]"
+                      />
                     </div>
-                    
-                    {/* Button */}
-                    <div className="mt-6">
-                      <Button 
-                        size="sm" 
-                        className="w-full bg-[var(--primary)] text-white hover:bg-[var(--primary)]/90 hover:shadow-md transition-all duration-300 border-none"
-                        onClick={(e: React.MouseEvent<Element, MouseEvent>) => handleKnowMoreClick(item, index, e)}
-                      >
-                        {buttonText}
-                      </Button>
+
+                    {/* Text Content and Button */}
+                    <div className="flex-1 flex flex-col p-4">
+                      <div className="flex-1">
+                        <CardTitle className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                          {item.title}
+                        </CardTitle>
+                        <CardDescription className="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                          {item.description}
+                        </CardDescription>
+                      </div>
+                      
+                      {/* Button aligned to right */}
+                      <div className="flex justify-end mt-3">
+                        <Button
+                          size="sm"
+                          className="bg-[var(--primary)] text-white hover:bg-[var(--primary)]/90 font-medium py-2 px-4  transition-all duration-300 text-sm min-w-[100px]"
+                          onClick={(e: React.MouseEvent<Element, MouseEvent>) => handleKnowMoreClick(item, index, e)}
+                        >
+                          {buttonText}
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* View More Button */}
-        <motion.div 
+        <motion.div
           className="mt-12 flex justify-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             size="lg"
-            className="border-2 border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white px-8 py-3 text-base font-semibold transition-all duration-300"
+            className="border-2 border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white px-6 py-2 text-sm font-semibold transition-all duration-300 rounded-lg"
             onClick={handleViewMoreClick}
           >
             {viewMoreText}

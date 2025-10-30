@@ -1,15 +1,15 @@
 // components/UI/LeadForm.jsx
 'use client';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from './Button';
 import { useRouter } from 'next/navigation';
 
-export default function LeadForm() {
+export default function LeadForm({ prefilledBrand = '' }) {
   const router = useRouter();
   const [formData, setFormData] = useState({
     year: '',
-    car: '',
+    car: prefilledBrand || '',
     model: '',
     part: '',
     engineSize: '',
@@ -23,6 +23,16 @@ export default function LeadForm() {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
+
+  // Update form when prefilledBrand changes
+  useEffect(() => {
+    if (prefilledBrand) {
+      setFormData(prev => ({
+        ...prev,
+        car: prefilledBrand
+      }));
+    }
+  }, [prefilledBrand]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
