@@ -44,5 +44,8 @@
   "bugs": {
     "url": "https://github.com/rohan654321/dem/issues"
   },
-  "homepage": "https://github.com/rohan654321/dem#readme"
+  "homepage": "https://github.com/rohan654321/dem#readme",
+  "directories": {
+    "lib": "lib"
+  }
 }

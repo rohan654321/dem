@@ -263,49 +263,8 @@ export default function OurStoryPage() {
         </div>
       </section>
 
-      {/* Milestones */}
-      <section className="py-20 bg-gradient-to-br from-primary to-slate-900 text-white">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-              By The Numbers
-            </h2>
-            <p className="text-gray-300 text-lg">
-              Our impact and growth over the years
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {milestones.map((milestone, index) => (
-              <motion.div
-                key={milestone.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center"
-              >
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                  <div className="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <milestone.icon className="text-white" size={28} />
-                  </div>
-                  <AnimatedNumber value={milestone.number} />
-                  <p className="text-gray-300 font-medium">{milestone.label}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Values */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-700">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -314,10 +273,10 @@ export default function OurStoryPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-gray-200">
               Our Values
             </h2>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-200 text-lg">
               The principles that guide everything we do
             </p>
           </motion.div>

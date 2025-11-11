@@ -26,32 +26,32 @@ export function PartsGrid({
     {
       title: "Engine Assembly",
       description: "Quality used engines & transmission parts sold as complete assemblies with full testing.",
-      image: "/images/OIP.jpg",
+      image: "/images/Engine_Assembly.png",
     },
     {
       title: "Transmission Systems",
       description: "Complete transmission units and electronic control modules for smooth shifting.",
-      image: "/images/OIP.jpg",
+      image: "/images/transmission.png",
     },
     {
       title: "ABS Modules",
       description: "Anti-lock braking system components to ensure your safety on the road.",
-      image: "/images/OIP.jpg",
+      image: "/images/ABS Module.png",
     },
     {
       title: "Brake Systems",
       description: "Complete mechanical brake assemblies for reliable stopping power.",
-      image: "/images/OIP.jpg",
+      image: "/images/ABS System.png",
     },
     {
       title: "Suspension Knuckles",
       description: "Front spindle knuckles that securely attach suspension components.",
-      image: "/images/OIP.jpg",
+      image: "/images/spindle.png",
     },
     {
       title: "Lighting Assemblies",
       description: "Headlight assemblies for optimal visibility and road safety.",
-      image: "/images/OIP.jpg",
+      image: "/images/head_light_assembly.png",
     },
   ],
   primary = "oklch(0.60 0.16 255)",
