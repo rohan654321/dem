@@ -171,41 +171,90 @@ const Footer = () => {
         </motion.div>
       </div>
 
-      {/* Black Bottom Section */}
-      <motion.div className="bg-primary text-gray-300 border-t border-gray-700 relative z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-            {/* Copyright */}
-            <p className="text-sm">© {currentYear} AutoParts Zone. All rights reserved.</p>
+{/* Black Bottom Section */}
+<motion.div className="bg-primary text-gray-300 border-t border-gray-700 relative z-20">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+      
+      {/* Copyright */}
+      <p className="text-sm">
+        © {currentYear} AutoParts Zone. All rights reserved.
+      </p>
 
-            {/* Warranty + Delivery */}
-            <div className="flex flex-wrap justify-center items-center gap-4 text-sm">
-              <div className="flex items-center space-x-2">
-                <Shield className="text-accent" size={16} />
-                <span>90-Day Warranty</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Truck className="text-accent" size={16} />
-                <span>3–4 Days Delivery</span>
-              </div>
-            </div>
-
-            {/* Payment Icons */}
-            <div className="flex items-center justify-center space-x-2">
-              <p>We Accept: </p>
-              {paymentIcons.map((p) => (
-                <p.icon
-                  key={p.name}
-                  size={28}
-                  color={p.color}
-                  // className="bg-white/10 p-1 rounded"
-                  title={p.name}
-                />
-              ))}
-            </div>
-          </div>
+      {/* Warranty + Delivery */}
+      <div className="flex flex-wrap justify-center items-center gap-4 text-sm">
+        <div className="flex items-center space-x-2">
+          <Shield className="text-accent" size={16} />
+          <span>90-Day Warranty</span>
         </div>
-      </motion.div>
+        <div className="flex items-center space-x-2">
+          <Truck className="text-accent" size={16} />
+          <span>3–4 Days Delivery</span>
+        </div>
+      </div>
+
+      {/* Payment + Member Section */}
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        <p className="text-sm">We Accept:</p>
+        
+        {/* Payment Logos (Images) */}
+        <div className="flex items-center gap-2">
+          <Image
+            src="/Cards/VISA.jpg"
+            alt="Visa"
+            width={36}
+            height={24}
+            className="object-contain"
+          />
+          <Image
+            src="/Cards/MASTERCARD.jpg"
+            alt="Mastercard"
+            width={36}
+            height={24}
+            className="object-contain"
+          />
+          <Image
+            src="/Cards/AMERICANEXPRESS.jpg"
+            alt="Amex"
+            width={36}
+            height={24}
+            className="object-contain"
+          />
+          <Image
+            src="/Cards/DISCOVER.jpg"
+            alt="Discover"
+            width={36}
+            height={24}
+            className="object-contain"
+          />
+          <Image
+            src="/Cards/PAYPAL.jpg"
+            alt="PayPal"
+            width={36}
+            height={24}
+            className="object-contain"
+          />
+        </div>
+
+        {/* Divider */}
+        <div className="w-px h-5 bg-gray-500 mx-3"></div>
+
+        {/* Member Section */}
+        <div className="flex items-center gap-2">
+          <p className="text-sm">Member:</p>
+          <Image
+            src="/Member/MEMBER.jpg"
+            alt="Member Logo"
+            width={40}
+            height={24}
+            className="object-contain"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</motion.div>
+
     </footer>
   );
 };
