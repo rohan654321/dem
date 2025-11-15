@@ -52,7 +52,7 @@ import {
   GiLion,
   GiRam,
   GiCarWheel,
-  GiStarsStack  // Use for Chrysler - represents luxury/prestige
+  GiStarsStack
 } from 'react-icons/gi';
 import { useState, useRef } from 'react';
 
@@ -65,9 +65,9 @@ const brands = [
   { name: 'Bentley', icon: GiUnionJack },
   { name: 'BMW', icon: SiBmw },
   { name: 'Buick', icon: GiCarKey },
-  { name: 'Cadillac', icon: GiStarsStack },       // ✅ Changed - represents luxury
+  { name: 'Cadillac', icon: GiStarsStack },
   { name: 'Chevrolet', icon: SiChevrolet },
-  { name: 'Chrysler', icon: GiCarKey },           // ✅ Changed - simple car icon
+  { name: 'Chrysler', icon: GiCarKey },
   { name: 'Dodge', icon: GiDodge },
   { name: 'Fiat', icon: SiFiat },
   { name: 'Ford', icon: SiFord },
@@ -98,6 +98,7 @@ const brands = [
   { name: 'Ferrari', icon: SiFerrari },
   { name: 'Lamborghini', icon: SiLamborghini },
 ];
+
 export default function TransmissionsPage() {  
   const [filteredBrands, setFilteredBrands] = useState(brands);
   const [selectedBrand, setSelectedBrand] = useState('');
@@ -166,81 +167,95 @@ export default function TransmissionsPage() {
 
   return (
     <div className="min-h-screen bg-secondary pt-20">
-      {/* Hero Section with Video Background */}
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
-        {/* Video Background */}
+      {/* ===== HERO SECTION (MATCHED WITH HOME PAGE STYLE) ===== */}
+      <section
+        id="hero-section"
+        className="
+          relative 
+          min-h-[165vh] 
+          sm:min-h-[155vh] 
+          md:min-h-[140vh] 
+          lg:min-h-[125vh] 
+          xl:min-h-[110vh]
+          flex items-start 
+          justify-center 
+          overflow-hidden 
+          pt-32 md:pt-40 lg:pt-48 
+          scroll-mt-32
+        "
+      >
+        {/* Background Video */}
         <div className="absolute inset-0 z-0">
           <video
             ref={videoRef}
             autoPlay
             muted
-            loop
             playsInline
+            preload="auto"
             className="w-full h-full object-cover"
-            poster="/api/placeholder/1920/1080" // Optional: fallback image
           >
-            {/* Add multiple video sources for better browser compatibility */}
             <source src="/videos/Untitled design (3).mp4" type="video/mp4" />
             <source src="/videos/Untitled design (4).mp4" type="video/webm" />
-            {/* Fallback text for browsers that don't support video */}
-            Your browser does not support the video tag.
           </video>
-          
-          {/* Dark overlay for better text readability */}
-          <div className="absolute inset-0 bg-black/60 z-10" />
+          <div className="absolute inset-0 bg-black/60 z-10"></div>
         </div>
-        
+
         <div className="container mx-auto px-4 relative z-30">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            {/* Content */}
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+
+            {/* LEFT CONTENT */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               className="text-white text-center lg:text-left"
             >
+              {/* H1 */}
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight mb-4 lg:mb-6"
+                className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-heading font-bold leading-tight mb-6"
               >
-                Find Reliable Used{' '}
-                <span className="text-accent">Transmissions</span>
-                {' '}— Delivered Fast
+                Used Transmissions — <span className="text-accent">Automatic & Manual Gearboxes</span>
               </motion.h1>
-              
+
+              {/* Description */}
               <motion.p
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
-                className="text-lg md:text-xl text-gray-300 mb-6 lg:mb-8 leading-relaxed"
+                className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed"
               >
-                Quality used transmissions with comprehensive testing and 90-day warranty. 
-                Find the perfect transmission for your vehicle.
+                We offer professionally tested used transmissions with verified shift quality and internal fluid
+                condition. Whether automatic, manual, or CVT, we verify gear engagement, clutch pressure, and torque
+                converter behavior before shipment. VIN-match confirmed for electronic compatibility and gear ratios.
               </motion.p>
 
-              {/* Trust Badges */}
+              {/* Benefits List */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.8 }}
-                className="flex flex-wrap justify-center lg:justify-start gap-4 md:gap-6 mb-6 lg:mb-8"
+                className="flex flex-col gap-3 mb-10 lg:max-w-lg"
               >
                 {[
-                  { icon: Shield, text: '90-Day Warranty' },
-                  { icon: Truck, text: 'Fast Shipping' },
-                  { icon: Wrench, text: 'OEM Tested' }
+                  "Professionally Tested Shift Quality",
+                  "VIN-Matched Electronic Compatibility",
+                  "Verified Fluid & Clutch Condition",
+                  "90-Day Replacement Warranty Included",
+                  "Fast Nationwide Freight Delivery",
+                  "Request Photos of the Actual Unit"
                 ].map((item, index) => (
-                  <div key={item.text} className="flex items-center space-x-2">
-                    <item.icon className="text-accent" size={18} />
-                    <span className="text-gray-300 text-sm md:text-base">{item.text}</span>
+                  <div key={index} className="flex items-center space-x-3">
+                    <Shield className="text-accent" size={18} />
+                    <span className="text-gray-300 text-sm md:text-base">{item}</span>
                   </div>
                 ))}
               </motion.div>
             </motion.div>
 
-            {/* Lead Form Card */}
+            {/* RIGHT - FORM */}
             <motion.div
               id="hero-form"
               initial={{ opacity: 0, x: 50 }}
@@ -248,13 +263,13 @@ export default function TransmissionsPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <div className="max-w-md mx-auto lg:mx-0">
+              <div className="max-w-md mx-auto">
                 <LeadForm 
                   preSelectedBrand={selectedBrand}
                   defaultPartType="transmission"
                 />
-                
-                {/* Phone Number Section */}
+
+                {/* Phone Box */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -267,8 +282,8 @@ export default function TransmissionsPage() {
                       <div>
                         <p className="text-sm text-gray-300">Prefer to call?</p>
                         <a 
-                          href="tel:8008383058" 
-                          className="text-lg font-bold text-white hover:text-accent transition-colors duration-300"
+                          href="tel:8008383058"
+                          className="text-lg font-bold text-white hover:text-accent transition-colors"
                         >
                           (800) 838-3058
                         </a>
@@ -281,6 +296,7 @@ export default function TransmissionsPage() {
                 </motion.div>
               </div>
             </motion.div>
+
           </div>
         </div>
       </section>

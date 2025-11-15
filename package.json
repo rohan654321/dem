@@ -2,6 +2,21 @@
   "name": "demo1",
   "version": "0.1.0",
   "private": true,
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
+  "homepage": "https://github.com/rohan654321/dem#readme",
+  "bugs": {
+    "url": "https://github.com/rohan654321/dem/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohan654321/dem.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "main": "tailwind.config.js",
+  "directories": {
+    "lib": "lib"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
@@ -32,20 +47,5 @@
     "@types/react-dom": "^19",
     "tailwindcss": "^4",
     "typescript": "^5"
-  },
-  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
-  "main": "tailwind.config.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rohan654321/dem.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rohan654321/dem/issues"
-  },
-  "homepage": "https://github.com/rohan654321/dem#readme",
-  "directories": {
-    "lib": "lib"
   }
 }
